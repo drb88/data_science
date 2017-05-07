@@ -189,8 +189,8 @@ word_cors %>%
   group_by(item1) %>%
   top_n(10) %>%
   ungroup() %>%
-  mutate(item2 = reorder(item2, correlation, fill=correlation)) %>%
-  ggplot(aes(item2, correlation)) +
+  mutate(item2 = reorder(item2, correlation)) %>%
+  ggplot(aes(item2, correlation, fill=correlation)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
@@ -223,8 +223,8 @@ word_cors %>%
   group_by(item1) %>%
   top_n(10) %>%
   ungroup() %>%
-  mutate(item2 = reorder(item2, correlation, fill=correlation)) %>%
-  ggplot(aes(item2, correlation)) +
+  mutate(item2 = reorder(item2, correlation)) %>%
+  ggplot(aes(item2, correlation, fill=correlation)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
@@ -272,7 +272,7 @@ ggplot(data = sentimentTotals, aes(x = sentiment, y = count)) +
 
 
 
-```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
+```{r, echo = FALSE, warning=FALSE, message=FALSE, fig.align='center'}
 tidy_books <- trump1 %>%
   group_by(year) %>%
   mutate(linenumber = row_number(),
@@ -284,10 +284,10 @@ tidy_books <- trump1 %>%
 nrcjoy <- get_sentiments("nrc") %>% 
   filter(sentiment == "joy")
 
-tidy_books %>%
-  filter(year == "2017") %>%
-  inner_join(nrcjoy) %>%
-  count(word, sort = TRUE)
+#tidy_books %>%
+ # filter(year == "2017") %>%
+ # inner_join(nrcjoy) %>%
+ # count(word, sort = TRUE)
 
 trumpsentiment <- tidy_books %>%
   inner_join(get_sentiments("nrc")) %>%
@@ -353,8 +353,6 @@ top_terms <- chapter_topics %>%
   top_n(5, beta) %>%
   ungroup() %>%
   arrange(topic, -beta)
-
-top_terms
 ```
 
 TextTextTextText
