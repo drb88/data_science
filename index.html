@@ -199,58 +199,106 @@ $(document).ready(function () {
 
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
-<p>Texty Text Text</p>
+<p>To determine the influence Donald Trump’s rhetoric has had on the popularity and the messaging of hate groups within the U.S. We focus on Trump’s Twitter activity to investigate any similarities between his Twitter feed and those of various domestic hate groups or individual extremists. We think that Trump’s rhetoric has changed vastly over the last decade. Considering his shift in tone, we are interested in exploring the evolution of hate speech during this time period.</p>
+<p>We predict that since the beginning of Trump’s presidential campaign, and continuing into his presidency, the Twitter activity of hate groups has increased and may even reflect Trump’s Twitter activity.</p>
+<p>Based on this, our main research question is: Is Trump’s Twitter activity associated with the Twitter activity of hate groups?</p>
+<p>We begin with some text analysis of Trump’s tweets using methods such as n_grams and word correlations. We then move on to comparing his Tweets to other extremist groups using methods such as topic modelling.</p>
 <p> </p>
 </div>
-<div id="relationships-between-words" class="section level3">
-<h3>Relationships Between Words</h3>
-<p>TextTextTextTextTextTextTextText</p>
-<p>Text Text Text <img src="index_files/figure-html/2015-12-13_sentiment_graph-1.png" width="960" /> TEXT ABOUT GRAPH ABOVE</p>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>We obtained data from the <a href="http://www.trumptwitterarchive.com/">Trump Twitter Archive</a>. This source compiled Trump’s Twitter activity into a dataset that includes information on the date he tweeted, the text he tweeted, and retweet counts. We use Trump’s tweets from 2009 to present day.</p>
+<p>We also used the <a href="https://www.splcenter.org/fighting-hate/extremist-files/individual">Southern Poverty Law Center</a> to gather a list of individuals who have been identified as extremist. They range from being white Nationalist to anti-Islamic or anti-Semitic. We identified their twitter handles, or their affiliated organization’s twitter handles, and scraped their most recent tweets. Unfortunately, Twitter API allows us to go back to tweets six to nine days in the past, so we collected whatever tweets were available to us from May 5<sup>th</sup> 2017, to as early as April 26<sup>th</sup>, 2017.</p>
+<p>The final data set, for Trumps tweets, has approximately 30,866 observations, and the hate group data set comprises of a total of 75 individuals and groups and 62,252 observations.</p>
 <p> </p>
 </div>
-<div id="pairwise-correlation" class="section level3">
-<h3>Pairwise Correlation</h3>
-<p>texttexttexttexttexttexttext</p>
-<ul>
-<li>Religious groups <img src="index_files/figure-html/pairwise_correlation_graph-1.png" width="960" /> graph description</li>
-</ul>
+<div id="donald-trumps-tweets-analysis" class="section level2">
+<h2>Donald Trump’s Tweets Analysis</h2>
+<div id="using-n-grams-and-correlations" class="section level3">
+<h3>Using N-Grams and Correlations</h3>
+<p>To get a preliminary idea of Trump’s tweets, we thought it would be interesting to look at the relationship between the words he uses. We chose to analyze bi-grams in two ways. First, we use bi-grams to visualize a network graph to get a broader idea of which words occur most with each other. Second, by looking at which words are used most frequently (and are therefore, highly correlated) with a set of issues.</p>
 <p> </p>
-<ul>
-<li>Politicians <img src="index_files/figure-html/pairwise_correlation_two_graph-1.png" width="960" /> graph description</li>
-</ul>
+<div id="network-analysis" class="section level4">
+<h4>Network Analysis</h4>
+<p>We use a Markov chain to see the most common word to word connections from Trump’s tweets. This is basically a network graph that shows which words are most commonly connected to each other, and also shows which word is usually followed, or preceded by each other with arrows.</p>
+<p>We use the <code>(ggraph)</code> package in R to plot the graph.</p>
+<p><img src="index_files/figure-html/2015-12-13_sentiment_graph-1.png" width="960" /> TEXT ABOUT GRAPH ABOVE</p>
 <p> </p>
-<ul>
-<li>Policies <img src="index_files/figure-html/pairwise_correlation_three_graph-1.png" width="960" /> graph description</li>
-</ul>
+</div>
+<div id="word-correlation-by-topic" class="section level4">
+<h4>Word Correlation by Topic</h4>
+<p>To get a better understanding of how Trump talks about specific issues, we chose to look at some word correlations. We look at his view on four main topics: religion (Christian, God, Muslim); politicians (Hillary Clinton, Bernie Sanders, Jeb Bush, and Ted Cruz); policy stance (economy, healthcare, and immigration); and race (arab, black, hispanic, white). The correlation is scored on a scale of 0 to 1.</p>
+<p>The <code>(tidyr)</code> package allows us to filter n-grams and prepare the tweets for analysis.</p>
+<p>&amp;nbsp</p>
+<div id="religion" class="section level5">
+<h5>Religion</h5>
+<p>Most of the words that Trump associates with religion, seem to be in a positive light. It is surprising to see that most of the negative words used are associated with Christianity, but it is often difficult to understand the larger premise of these word correlations from simply looking at n-grams relationships. <img src="index_files/figure-html/pairwise_correlation_graph-1.png" width="960" /> graph description</p>
 <p> </p>
-<ul>
-<li>Race <img src="index_files/figure-html/pairwise_correlation_four_graph-1.png" width="960" /> graph description</li>
-</ul>
+</div>
+<div id="politicians" class="section level5">
+<h5>Politicians</h5>
+<p>When analyzing word correlations with politicians, the highed correlations are with the politicans’ last names, but when we look at Hillary Clinton specifically, we see that the word ‘crooked’ is also highly correlated - something that we all heard in his speeches during the presidential campaign. <img src="index_files/figure-html/pairwise_correlation_two_graph-1.png" width="960" /> graph description</p>
 <p> </p>
+</div>
+<div id="policies" class="section level5">
+<h5>Policies</h5>
+<p>Trump’s stance on the policies that he repeated time and time again in his campaign are also quite clear in the word correlations. When it comes to the economy, Trump almost always had something to say about China. Regarding immigration, he talked about weak and illegal immigration. Regarding war and terror, ‘radical Islamic terrorism’ and ‘Syria’ were usually always on his agenda. <img src="index_files/figure-html/pairwise_correlation_three_graph-1.png" width="960" /> graph description</p>
+<p> </p>
+</div>
+<div id="race" class="section level5">
+<h5>Race</h5>
+<p>Lastly, looking at his views on race, Trump may was not very vocal on ‘white’ as a race, but he had a lot to say about the black, hispanic, and arab communities. Looking at the word correlations with black, and hispanic especially, we can see plenty of negative word correlations. <img src="index_files/figure-html/pairwise_correlation_four_graph-1.png" width="960" /> graph description</p>
+<p> </p>
+</div>
+</div>
 </div>
 <div id="sentiment-analysis" class="section level3">
 <h3>Sentiment Analysis</h3>
-<p>TextTextTextText  </p>
-<ul>
-<li>Total sentiment score for all tweets <img src="index_files/figure-html/sentiment_all_tweets_graph-1.png" width="960" /> description of graph above</li>
-</ul>
+<p>In this section, we use sentiment analysis to evaluate the emotional content of Trump’s tweets. To do this, we use the tidytext package, which contains several sentiment lexicons, or dictionaries. We use the <code>nrc</code> lexicon which categorizes words in a binary fashion (yes/no) into categories of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust.</p>
 <p> </p>
-<ul>
-<li>Sentiment per tweet <img src="index_files/figure-html/sentiment_timeline_graph-1.png" width="960" /> Explanation of graph</li>
-</ul>
-<p> </p>
-</div>
-<div id="topic-modeling" class="section level3">
-<h3>Topic Modeling</h3>
-<p>Text Text Text  </p>
-<ul>
-<li>LDA by ideological group <img src="index_files/figure-html/topic_graph-1.png" width="960" /> Explanation of graph</li>
-</ul>
+<div id="plotting-the-frequency-of-trumps-sentiments" class="section level4">
+<h4>Plotting the Frequency of Trump’s Sentiments</h4>
+<p>We use <code>cbind</code> to join Trump’s tweets with the <code>nrc</code> lexicon without the columns that are not used in that lexicon.We can then visualize the emotional content of Trump’s tweets by plotting the number of tweets by sentiment using a bar chart.</p>
+<p>From the graph itself, it seems like most of Trump’s words show positive emotions - trust and anticipation being the largest categories. There also seems to be many negative sentiments in his texts</p>
+<p>We must note that not every English word is in the lexicons because many English words are pretty neutral. It is important that we keep in mind that these methods do not take into account qualifiers before a word, such as in “no good” or “not true”; a lexicon-based method like this is based on unigrams only. For many kinds of text, there are not sustained sections of sarcasm or negated text, so this is not an important effect. <img src="index_files/figure-html/sentiment_all_tweets_graph-1.png" width="960" /> description of graph above</p>
 <p> </p>
 </div>
-<div id="per-document-classification" class="section level3">
-<h3>Per Document Classification</h3>
-<p>Text text text text</p>
+<div id="plotting-trumps-sentiment-over-time" class="section level4">
+<h4>Plotting Trump’s Sentiment Over Time</h4>
+<p>Once we use the tidy format to <code>unnest_tokens()</code> and group and <code>mutate</code>, we can <code>filter</code> the NRC lexicon for each emotion and use the <code>inner_join()</code> to perform the sentiment analysis. We plot Trump’s sentiment scale using the sentiment score as the y-axis and index as the x-axis to denote time from Trump’s oldest available tweet to his newest.</p>
+<p>The graph shows that his earlier tweets used to be very positive, and motivational. Over time however, and possibly closer to the presidential campaign, his rhetoric has become less positive, and more balanced out with negative tweets.</p>
+<p><img src="index_files/figure-html/sentiment_timeline_graph-1.png" width="960" /> Explanation of graph</p>
+<p> </p>
+<p> </p>
+</div>
+</div>
+</div>
+<div id="comparing-trumps-tweets-to-other-extremist-ideologies" class="section level2">
+<h2>Comparing Trump’s Tweets to other Extremist Ideologies</h2>
+<p>We wanted to see how close Trump’s rhetoric has been to other extremist individuals/groups. To do this, we used the <a href="https://www.splcenter.org/fighting-hate/extremist-files/individual">Southern Poverty Law Center</a> to gather a list of domestic individuals/groups who have been identified as extremist and separated them into the following ideologies as mentioned in the website:</p>
+<ul>
+<li>White Nationalist</li>
+<li>Neo-Nazi</li>
+<li>Neo-Confederate</li>
+<li>Ku Klux Klan (KKK)</li>
+<li>Black Separatist</li>
+<li>Anti-Muslim</li>
+<li>Anti-LGBT</li>
+<li>Anti-Immigrant</li>
+<li>Anti-Government</li>
+</ul>
+<p> </p>
+<div id="latent-dirichlet-allocation-lda" class="section level4">
+<h4>Latent Dirichlet allocation (LDA)</h4>
+<p>LDA is a an alogorithm for topic modeling where it allows documents to overlap each other in terms of content, rather than being separated into discrete groups, in a way that mirrors typical use of natural language. LDA finds the mixture of words that is associated with each topic, while also determining the mixture of topics that describes each document.</p>
+<p>In our case, the <code>LDA()</code> function combines all the tweets (hate groups, and Trump tweets) and separates the mixture of words into topics that best fit with a body of topic (or ideology).</p>
+<p>We use LDA to separate our combined set of tweets into nine groups based on the idea that we have nine separate ideologies and each ideology will likely have different topics of interest. For example, anti-immigrant groups will most likely mention words like ‘immigration’ or ‘illegal’ while anti-Islamic groups are likely to mention more words like ‘jihad’ and ‘muslim’.</p>
+<p>This is illustrated in the visualization above. Group 2 seems to be clearly about immigration whereas group 7 is more about Islam. The tenth group focuses on gun control, and the 11<sup>th</sup> group seems to be more Neo-Nazi in nature. <img src="index_files/figure-html/topic_graph-1.png" width="960" /> Explanation of graph</p>
+<p> </p>
+</div>
+<div id="using-topic-modeling" class="section level3">
+<h3>Using Topic Modeling</h3>
+<p>We use topic modeling which is a method for unsupervised classification of a collestion of documents (in this case, tweets) which finds natural groups (in this case, ideologies) of iterms so we can understand them separately.</p>
 <pre><code>## # A tibble: 71 × 4
 ##             group_id chapter topic     gamma
 ##                &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
@@ -279,9 +327,15 @@ $(document).ready(function () {
 ## 9    Anti-Immigrant       1     2 0.6123448 Neo-Confederate
 ## 10 Black Separatist       3     2 0.4254101  Anti-Immigrant
 ## # ... with 78 more rows</code></pre>
-<ul>
-<li>Confusion matrix <img src="index_files/figure-html/assignments_graph-1.png" width="960" /> Explanation of graph</li>
-</ul>
+<p> </p>
+<div id="by-word-assignments" class="section level4">
+<h4>By word assignments</h4>
+<p>In LDA, we can take the original tweet-word pairs and find which words in each tweet were assigned to which topic using the <code>augment()</code> function. This returns a tidy data frame of ideological group-term counts, but adds an extra column: <code>topic</code>, with the topic each term was assigned to within each group.We can combine this <code>assignments</code> table with the consensus ideological groups to find which words were incorrectly classified.</p>
+<p>The combination of the true ideological groups, <code>(title)</code> or <code>group_id</code>, and the group assigned to it <code>(consensus)</code> can be used to visualize a confusion matrix, showing how often words from the tweets of one ideological group were assigned to another, usinf dplyr’s <code>count()</code> and ggplot2’s <code>geom_tile</code> functions.</p>
+<p>What stands out most in the confusion matrix is that a lot of KKK words were mistaken for Trump’s words. All of Trump’s words were assigned correctly to Trump. Neo-Confederate related words were mistaken to be part of Anti-LGBT or White Nationalist words.</p>
+<p>Lastly a table of the most commonly mistaken words show that, anti-government tweets using the word ‘gun’ were most commonly mistaken to be anti-LGBT or white nationalist groups. Anti-Muslim groups using ‘muslim’ were mistaken mostly to be anti-immigrant, KKK, or neo-confederate.</p>
+<p> </p>
+<p><img src="index_files/figure-html/assignments_graph-1.png" width="960" /> Explanation of graph</p>
 <p> </p>
 <ul>
 <li>Wrong words</li>
@@ -301,8 +355,12 @@ $(document).ready(function () {
 ## 10 Anti-Government    Anti-Immigrant  trump   319
 ## # ... with 111,401 more rows</code></pre>
 </div>
+</div>
 <div id="conclusion" class="section level3">
 <h3>Conclusion</h3>
+<p>From Trump’s tweets analysis alone, we could not make a very strong case that his rhetoric has been negative. However, we do see some hateful speech in the word correlations, and we also see that his tweets have become less positive (and balanced out by more negative sentiments) over time.</p>
+<p>When comparing Trump to other extremist ideologies, the confusion matrix was very good in capturing how the Ku Klux Klan’s speech is very closely aligned with that of Trump’s. Knowing the KKK’s history and hate towards other races, this somewhat shows how Trump has influenced and encouraged hate speech over the recent years.</p>
+</div>
 </div>
 
 
