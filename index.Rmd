@@ -3,8 +3,15 @@ title: "Donald Trump  Twitter Analysis"
 ---
 
 This where we an intro would go.
+Texty
+Text
+Text
 
-```{r, echo = FALSE, fig.align='center'}
+
+###Section Title
+TextTextTextTextTextTextTextText
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 setwd("/Users/Ryan/Desktop")
 
 library(twitteR)
@@ -27,6 +34,7 @@ library(ggplot2)
 library(syuzhet)
 library(lubridate)
 library(scales)
+
 
 #######################################################################################################################
 ############  CLEAN DATA 
@@ -83,8 +91,6 @@ trump1$text <- gsub("MakeAmericaGreatAgain", "", trump1$text)
 trump_bigrams <- trump1 %>%
   unnest_tokens(bigram, text, token = "ngrams", n = 2)
 
-trump_bigrams
-
 #####
 # COUNT AND FILTERING N-GRAMS
 
@@ -104,45 +110,26 @@ bigrams_filtered <- bigrams_separated %>%
 bigram_counts <- bigrams_filtered %>% 
   count(word1, word2, sort = TRUE)
 
-bigram_counts
-
 #recombined words
 bigrams_united <- bigrams_filtered %>%
   unite(bigram, word1, word2, sep = " ")
 
-bigrams_united
-
-#most common trigrams
-trump1 %>%
-  unnest_tokens(trigram, text, token = "ngrams", n = 3) %>%
-  separate(trigram, c("word1", "word2", "word3"), sep = " ") %>%
-  filter(!word1 %in% stop_words$word,
-         !word2 %in% stop_words$word,
-         !word3 %in% stop_words$word) %>%
-  count(word1, word2, word3, sort = TRUE)
 
 #######################################################################################
 #### VISUALIZING A NETWORK OF BIGRAMS WITH GGRAPH
 #######################################################################################
 
 
-# original counts
-bigram_counts
-
 # filter for only relatively common combinations
 bigram_graph <- bigram_counts %>%
   filter(n > 20) %>%
   graph_from_data_frame()
 
-bigram_graph
-
-set.seed(2017)
-
-ggraph(bigram_graph, layout = "fr") +
-  geom_edge_link() +
-  geom_node_point() +
-  geom_node_text(aes(label = name), vjust = 1, hjust = 1)
-
+```
+Text
+Text
+Text
+```{r 2015-12-13_sentiment_graph, fig.width=10, fig.height=7}
 set.seed(2016)
 
 a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
@@ -153,8 +140,14 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_point(color = "lightblue", size = 5) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
+```
+TEXT ABOUT GRAPH ABOVE
 
 
+###Section Title
+texttexttexttexttexttexttext
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 #######################################################################################
 #### COUNTING AND CORRELATION AMONG SECTIONS
 #######################################################################################
@@ -165,14 +158,10 @@ trump_section_words <- trump1 %>%
   unnest_tokens(word, text) %>%
   filter(!word %in% stop_words$word)
 
-trump_section_words
-
 
 # count words co-occuring within sections
 word_pairs <- trump_section_words %>%
   pairwise_count(word, section, sort = TRUE)
-
-word_pairs
 
 word_pairs %>%
   filter(item1 == "hillary")
@@ -189,7 +178,10 @@ word_cors <- trump_section_words %>%
   pairwise_cor(word, section, sort = TRUE)
 
 word_cors
+```
 
+Religious groups
+```{r pairwise_correlation_graph, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("christian", "jewish", "muslim", "athiest")) %>%
   group_by(item1) %>%
@@ -200,7 +192,10 @@ word_cors %>%
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
+```
 
+Politicians
+```{r pairwise_correlation_two_graph, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("hillary", "jeb", "ted", "bernie")) %>%
   group_by(item1) %>%
@@ -211,9 +206,12 @@ word_cors %>%
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
+```
 
+Policies
+```{r pairwise_correlation_three_graph, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
-  filter(item1 %in% c("healthcare", "economy", "immigration", "globalization")) %>%
+  filter(item1 %in% c("healthcare", "economy", "immigration", "globalization", "terror")) %>%
   group_by(item1) %>%
   top_n(10) %>%
   ungroup() %>%
@@ -222,7 +220,7 @@ word_cors %>%
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
-
+```
 
 set.seed(2016)
 
@@ -252,9 +250,7 @@ mySentiment <- get_nrc_sentiment(trump1$text)
 #######################################################################################
 #### SENTIMENT ANALYSIS WITH INNER JOIN
 #######################################################################################
-library(syuzhet)
-library(lubridate)
-library(scales)
+
 
 mySentiment <- get_nrc_sentiment(trump1$text)
 
@@ -497,4 +493,4 @@ wrong_words %>%
   count(title, consensus, term, wt = count) %>%
   ungroup() %>%
   arrange(desc(n))
-```
+  ```
