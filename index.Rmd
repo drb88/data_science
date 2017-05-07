@@ -1,5 +1,500 @@
 ---
-title: "Nick's Website"
+title: "Donald Trump  Twitter Analysis"
 ---
 
 This where we an intro would go.
+
+```{r, echo = FALSE, fig.align='center'}
+setwd("/Users/Ryan/Desktop")
+
+library(twitteR)
+library(SnowballC)
+library(wordcloud)
+library(tm)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(janeaustenr)
+library(twitteR)
+library(stringr)
+library(tidyr)
+library(igraph)
+library(ggraph)
+library(devtools)
+library(widyr)
+library(topicmodels)
+library(ggplot2)
+library(syuzhet)
+library(lubridate)
+library(scales)
+
+#######################################################################################################################
+############  CLEAN DATA 
+#################################################################################################################
+
+#Read csv
+hate <- read.csv("all_hate_tweets_FINAL.csv")
+
+
+#Clean data
+hate$value <- gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", hate$value)
+hate$value <- gsub("http\\w+", "", hate$value)
+hate$value <- gsub("@\\w+", "", hate$value)
+hate$value <- gsub("@", "", hate$value)
+hate$value <- gsub("[[:punct:]]", "", hate$value)
+hate$value <- gsub("[[:digit:]]", "", hate$value)
+hate$value <- gsub("&amp", "", hate$value)
+hate$value <- gsub("[ \t]{2,}", "", hate$value)
+hate$value <- gsub("^\\s+|\\s+$", "", hate$value) 
+hate$value <- gsub("tco.*? ", "", hate$value) 
+hate$value <- gsub("tco.*", "", hate$value)
+hate$value <- gsub("http.*? ", "", hate$value) 
+hate$value <- gsub("amp", "", hate$value)
+hate$value <- gsub("http", "", hate$value)
+hate <- hate[!(is.na(hate$value) | hate$value==""), ]
+
+#######################################################################################
+#### FIRST STUFF
+#######################################################################################
+
+
+trump1 <- read.csv("TruthFacts.csv", stringsAsFactors=FALSE)
+
+trump1$text <- gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", trump1$text)
+trump1$text <- gsub("http\\w+", "", trump1$text)
+trump1$text <- gsub("@\\w+", "", trump1$text)
+trump1$text <- gsub("@", "", trump1$text)
+trump1$text <- gsub("[[:punct:]]", "", trump1$text)
+trump1$text <- gsub("[[:digit:]]", "", trump1$text)
+trump1$text <- gsub("&amp", "", trump1$text)
+trump1$text <- gsub("[ \t]{2,}", "", trump1$text)
+trump1$text <- gsub("^\\s+|\\s+$", "", trump1$text) 
+trump1$text <- gsub("tco.*? ", "", trump1$text)
+trump1$text <- gsub("\"", "", trump1$text)
+trump1$text <- gsub("tco.*", "", trump1$text) 
+trump1$text <- gsub("MakeAmericaGreatAgain", "", trump1$text)
+
+
+#######################################################################################
+#### NGRAMS
+#######################################################################################
+
+
+trump_bigrams <- trump1 %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+trump_bigrams
+
+#####
+# COUNT AND FILTERING N-GRAMS
+
+trump_bigrams %>%
+  count(bigram, sort = TRUE)
+
+#STOP-WORDS
+
+bigrams_separated <- trump_bigrams %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bigrams_filtered <- bigrams_separated %>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word)
+
+# new bigram counts:
+bigram_counts <- bigrams_filtered %>% 
+  count(word1, word2, sort = TRUE)
+
+bigram_counts
+
+#recombined words
+bigrams_united <- bigrams_filtered %>%
+  unite(bigram, word1, word2, sep = " ")
+
+bigrams_united
+
+#most common trigrams
+trump1 %>%
+  unnest_tokens(trigram, text, token = "ngrams", n = 3) %>%
+  separate(trigram, c("word1", "word2", "word3"), sep = " ") %>%
+  filter(!word1 %in% stop_words$word,
+         !word2 %in% stop_words$word,
+         !word3 %in% stop_words$word) %>%
+  count(word1, word2, word3, sort = TRUE)
+
+#######################################################################################
+#### VISUALIZING A NETWORK OF BIGRAMS WITH GGRAPH
+#######################################################################################
+
+
+# original counts
+bigram_counts
+
+# filter for only relatively common combinations
+bigram_graph <- bigram_counts %>%
+  filter(n > 20) %>%
+  graph_from_data_frame()
+
+bigram_graph
+
+set.seed(2017)
+
+ggraph(bigram_graph, layout = "fr") +
+  geom_edge_link() +
+  geom_node_point() +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1)
+
+set.seed(2016)
+
+a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
+
+ggraph(bigram_graph, layout = "fr") +
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+                 arrow = a, end_cap = circle(.07, 'inches')) +
+  geom_node_point(color = "lightblue", size = 5) +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
+  theme_void()
+
+
+#######################################################################################
+#### COUNTING AND CORRELATION AMONG SECTIONS
+#######################################################################################
+
+trump_section_words <- trump1 %>%
+  mutate(section = row_number() %/% 10) %>%
+  filter(section > 0) %>%
+  unnest_tokens(word, text) %>%
+  filter(!word %in% stop_words$word)
+
+trump_section_words
+
+
+# count words co-occuring within sections
+word_pairs <- trump_section_words %>%
+  pairwise_count(word, section, sort = TRUE)
+
+word_pairs
+
+word_pairs %>%
+  filter(item1 == "hillary")
+
+#######################################################################################
+#### PAIRWISE CORRELATION
+#######################################################################################
+
+
+# we need to filter for at least relatively common words first
+word_cors <- trump_section_words %>%
+  group_by(word) %>%
+  filter(n() >= 20) %>%
+  pairwise_cor(word, section, sort = TRUE)
+
+word_cors
+
+word_cors %>%
+  filter(item1 %in% c("christian", "jewish", "muslim", "athiest")) %>%
+  group_by(item1) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(item2 = reorder(item2, correlation)) %>%
+  ggplot(aes(item2, correlation)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ item1, scales = "free") +
+  coord_flip()
+
+word_cors %>%
+  filter(item1 %in% c("hillary", "jeb", "ted", "bernie")) %>%
+  group_by(item1) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(item2 = reorder(item2, correlation)) %>%
+  ggplot(aes(item2, correlation)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ item1, scales = "free") +
+  coord_flip()
+
+word_cors %>%
+  filter(item1 %in% c("healthcare", "economy", "immigration", "globalization")) %>%
+  group_by(item1) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(item2 = reorder(item2, correlation)) %>%
+  ggplot(aes(item2, correlation)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ item1, scales = "free") +
+  coord_flip()
+
+
+set.seed(2016)
+
+word_cors %>%
+  filter(correlation > .15) %>%
+  graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_alpha = correlation), show.legend = FALSE) +
+  geom_node_point(color = "lightblue", size = 5) +
+  geom_node_text(aes(label = name), repel = TRUE) +
+  theme_void()
+
+
+#######################################################################################
+#######################################################################################
+#######################################################################################
+#### SENTIMENT ANALYSIS
+#######################################################################################
+#######################################################################################
+#######################################################################################
+
+sentiments
+
+get_sentiments("nrc")
+
+mySentiment <- get_nrc_sentiment(trump1$text)
+#######################################################################################
+#### SENTIMENT ANALYSIS WITH INNER JOIN
+#######################################################################################
+library(syuzhet)
+library(lubridate)
+library(scales)
+
+mySentiment <- get_nrc_sentiment(trump1$text)
+
+tweets <- cbind(trump1, mySentiment)
+
+sentimentTotals <- data.frame(colSums(tweets[,c(7:16)]))
+names(sentimentTotals) <- "count"
+sentimentTotals <- cbind("sentiment" = rownames(sentimentTotals), sentimentTotals)
+rownames(sentimentTotals) <- NULL
+ggplot(data = sentimentTotals, aes(x = sentiment, y = count)) +
+  geom_bar(aes(fill = sentiment), stat = "identity") +
+  theme(legend.position = "none") +
+  xlab("Sentiment") + ylab("Total Count") + ggtitle("Total Sentiment Score for All Tweets")
+
+
+
+####
+
+
+tidy_books <- trump1 %>%
+  group_by(year) %>%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text, regex("^chapter [\\divxlc]", 
+                                                 ignore_case = TRUE)))) %>%
+  ungroup() %>%
+  unnest_tokens(word, text)
+
+nrcjoy <- get_sentiments("nrc") %>% 
+  filter(sentiment == "joy")
+
+tidy_books %>%
+  filter(year == "2017") %>%
+  inner_join(nrcjoy) %>%
+  count(word, sort = TRUE)
+
+trumpsentiment <- tidy_books %>%
+  inner_join(get_sentiments("nrc")) %>%
+  count(year, index = linenumber %/% 1, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+ggplot(trumpsentiment, aes(index, sentiment, fill = year)) +
+  geom_col(show.legend = FALSE) 
+
+
+
+#######################################################################################
+#######################################################################################
+#######################################################################################
+#### TERM FREQUENCY
+#######################################################################################
+#######################################################################################
+#######################################################################################
+
+book_words <- hate %>%
+  unnest_tokens(word, value) %>%
+  count(group_id, word, sort = TRUE) %>%
+  ungroup()
+
+total_words <- book_words %>% 
+  group_by(group_id) %>% 
+  summarize(total = sum(n))
+
+book_words <- left_join(book_words, total_words)
+
+book_words
+
+ggplot(book_words, aes(n/total, fill = group_id)) +
+  geom_histogram(show.legend = FALSE) +
+  xlim(NA, 0.0009) +
+  facet_wrap(~group_id, ncol = 2, scales = "free_y")
+
+#######################################################################################
+#### THE BIND_TF_IDF FUNCTION
+#######################################################################################
+
+#book_words <- book_words %>%
+#  bind_tf_idf(word, group_id, n)
+
+#book_words
+
+#book_words %>%
+#  select(-total) %>%
+#  arrange(desc(tf_idf))
+
+#plot_austen <- book_words %>%
+#  arrange(desc(tf_idf)) %>%
+#  mutate(word = factor(word, levels = rev(unique(word))))
+
+#plot_austen %>% 
+#  top_n(20) %>%
+#  ggplot(aes(word, tf_idf, fill = group_id)) +
+#  geom_col() +
+#  labs(x = NULL, y = "tf-idf") +
+#  coord_flip()
+
+#plot_austen %>% 
+#  group_by(group_id) %>% 
+#  top_n(15) %>% 
+#  ungroup %>%
+#  ggplot(aes(word, tf_idf, fill = group_id)) +
+#  geom_col(show.legend = FALSE) +
+#  labs(x = NULL, y = "tf-idf") +
+#  facet_wrap(~group_id, ncol = 2, scales = "free") +
+#  coord_flip()
+
+
+#######################################################################################
+#######################################################################################
+#######################################################################################
+#### TOPIC MODELING
+#######################################################################################
+#######################################################################################
+#######################################################################################
+
+# divide into documents, each representing one chapter
+by_chapter <- hate %>%
+  group_by(group_id) %>%
+  mutate(chapter = cumsum(str_detect(value, regex("^asdf ", ignore_case = TRUE)))) %>%
+  ungroup() %>%
+  filter(chapter > 0) %>%
+  unite(document, group_id, chapter)
+
+# split into words
+by_chapter_word <- by_chapter %>%
+  unnest_tokens(word, value)
+
+# find document-word counts
+word_counts <- by_chapter_word %>%
+  anti_join(stop_words) %>%
+  count(document, word, sort = TRUE) %>%
+  ungroup()
+
+word_counts
+
+#######################################################################################
+#### LDA ON CHAPTERS
+#######################################################################################
+
+chapters_dtm <- word_counts %>%
+  cast_dtm(document, word, n)
+
+chapters_dtm
+
+chapters_lda <- LDA(chapters_dtm, k = 5, control = list(seed = 1234))
+
+chapters_lda
+
+chapter_topics <- tidy(chapters_lda, matrix = "beta")
+
+chapter_topics
+
+top_terms <- chapter_topics %>%
+  group_by(topic) %>%
+  top_n(5, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+top_terms
+
+
+top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip()
+
+#######################################################################################
+#### PER DOCUMENT CLASSIFICATION
+#######################################################################################
+
+chapters_gamma <- tidy(chapters_lda, matrix = "gamma")
+
+chapters_gamma
+
+chapters_gamma <- chapters_gamma %>%
+  separate(document, c("group_id", "chapter"), sep = "_", convert = TRUE)
+
+chapters_gamma
+
+chapters_gamma %>%
+  mutate(title = reorder(group_id, gamma * topic)) %>%
+  ggplot(aes(factor(topic), gamma)) +
+  geom_boxplot() +
+  facet_wrap(~ title)
+
+chapter_classifications <- chapters_gamma %>%
+  group_by(group_id, chapter) %>%
+  top_n(1, gamma) %>%
+  ungroup()
+
+chapter_classifications
+
+book_topics <- chapter_classifications %>%
+  count(group_id, topic) %>%
+  group_by(group_id) %>%
+  top_n(1, n) %>%
+  ungroup() %>%
+  transmute(consensus = group_id, topic)
+
+chapter_classifications %>%
+  inner_join(book_topics, by = "topic") %>%
+  filter(group_id != consensus)
+
+#######################################################################################
+#### BY WORD ASSIGNMENTS: AUGMENT
+#######################################################################################
+
+assignments <- augment(chapters_lda, data = chapters_dtm)
+assignments
+
+assignments <- assignments %>%
+  separate(document, c("title", "chapter"), sep = "_", convert = TRUE) %>%
+  inner_join(book_topics, by = c(".topic" = "topic"))
+
+assignments
+
+assignments %>%
+  count(title, consensus, wt = count) %>%
+  group_by(title) %>%
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(consensus, title, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(high = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        panel.grid = element_blank()) +
+  labs(x = "Book words were assigned to",
+       y = "Book words came from",
+       fill = "% of assignments")
+
+
+wrong_words <- assignments %>%
+  filter(title != consensus)
+
+wrong_words
+
+wrong_words %>%
+  count(title, consensus, term, wt = count) %>%
+  ungroup() %>%
+  arrange(desc(n))
+```

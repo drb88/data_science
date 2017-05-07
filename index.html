@@ -11,7 +11,7 @@
 
 
 
-<title>Nick’s Website</title>
+<title>Donald Trump Twitter Analysis</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -193,12 +193,694 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Nick’s Website</h1>
+<h1 class="title toc-ignore">Donald Trump Twitter Analysis</h1>
 
 </div>
 
 
 <p>This where we an intro would go.</p>
+<pre><code>## Warning: package &#39;syuzhet&#39; was built under R version 3.3.3</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 3.3.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:igraph&#39;:
+## 
+##     %--%</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre><code>## Warning: package &#39;scales&#39; was built under R version 3.3.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:syuzhet&#39;:
+## 
+##     rescale</code></pre>
+<pre><code>## # A tibble: 404,663 × 6
+##    day_of_week month   day    time  year             bigram
+##          &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;chr&gt; &lt;int&gt;              &lt;chr&gt;
+## 1          Fri     1     1 0:44:14  2016             i will
+## 2          Fri     1     1 0:44:14  2016            will be
+## 3          Fri     1     1 0:44:14  2016      be onlivewith
+## 4          Fri     1     1 0:44:14  2016 onlivewith members
+## 5          Fri     1     1 0:44:14  2016         members of
+## 6          Fri     1     1 0:44:14  2016              of my
+## 7          Fri     1     1 0:44:14  2016          my family
+## 8          Fri     1     1 0:44:14  2016        family atpm
+## 9          Fri     1     1 0:44:14  2016            atpm we
+## 10         Fri     1     1 0:44:14  2016            we will
+## # ... with 404,653 more rows</code></pre>
+<pre><code>## # A tibble: 177,497 × 2
+##           bigram     n
+##            &lt;chr&gt; &lt;int&gt;
+## 1         of the  1424
+## 2      thank you  1396
+## 3        will be  1333
+## 4         in the  1116
+## 5           is a   947
+## 6   donald trump   897
+## 7        a great   839
+## 8        for the   711
+## 9          to be   702
+## 10 for president   691
+## # ... with 177,487 more rows</code></pre>
+<pre><code>## Source: local data frame [55,813 x 3]
+## Groups: word1 [17,154]
+## 
+##        word1      word2     n
+##        &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
+## 1     donald      trump   897
+## 2       cont       http   419
+## 3    hillary    clinton   205
+## 4    crooked    hillary   196
+## 5  celebrity apprentice   188
+## 6  president      obama   155
+## 7      trump      tower   145
+## 8      white      house   140
+## 9      trump   national   127
+## 10       ted       cruz   112
+## # ... with 55,803 more rows</code></pre>
+<pre><code>## # A tibble: 79,272 × 6
+##    day_of_week month   day     time  year            bigram
+## *        &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;
+## 1          Fri     1     1  0:44:14  2016       family atpm
+## 2          Fri     1     1 21:29:56  2016   theyre spending
+## 3          Fri     1     1 21:29:56  2016 spending millions
+## 4          Fri     1     1 21:29:56  2016      wingo donald
+## 5          Fri     1     1 21:29:56  2016      donald trump
+## 6          Fri     1     1 23:00:09  2016  officially begun
+## 7          Fri     1     1 23:00:09  2016     stops planned
+## 8          Fri     1     1 23:02:05  2016      trump family
+## 9          Fri     1     1 23:02:05  2016        family god
+## 10         Fri     1     1 23:02:05  2016         god bless
+## # ... with 79,262 more rows</code></pre>
+<pre><code>## Source: local data frame [28,417 x 4]
+## Groups: word1, word2 [24,083]
+## 
+##       word1         word2   word3     n
+##       &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+## 1   crooked       hillary clinton    74
+## 2     trump      national   doral    54
+## 3     viaby        donald   trump    34
+## 4       fox           amp friends    32
+## 5     trump international    golf    31
+## 6     trump      national    golf    28
+## 7    donald         trump    http    27
+## 8  national          golf    club    27
+## 9      miss      universe pageant    26
+## 10    trump international   hotel    26
+## # ... with 28,407 more rows</code></pre>
+<pre><code>## Source: local data frame [55,813 x 3]
+## Groups: word1 [17,154]
+## 
+##        word1      word2     n
+##        &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
+## 1     donald      trump   897
+## 2       cont       http   419
+## 3    hillary    clinton   205
+## 4    crooked    hillary   196
+## 5  celebrity apprentice   188
+## 6  president      obama   155
+## 7      trump      tower   145
+## 8      white      house   140
+## 9      trump   national   127
+## 10       ted       cruz   112
+## # ... with 55,803 more rows</code></pre>
+<pre><code>## IGRAPH DN-- 192 130 -- 
+## + attr: name (v/c), n (e/n)
+## + edges (vertex names):
+##  [1] donald     -&gt;trump         cont       -&gt;http         
+##  [3] hillary    -&gt;clinton       crooked    -&gt;hillary      
+##  [5] celebrity  -&gt;apprentice    president  -&gt;obama        
+##  [7] trump      -&gt;tower         white      -&gt;house        
+##  [9] trump      -&gt;national      ted        -&gt;cruz         
+## [11] global     -&gt;warming       happy      -&gt;birthday     
+## [13] trump      -&gt;international south      -&gt;carolina     
+## [15] jeb        -&gt;bush          wind       -&gt;turbines     
+## + ... omitted several edges</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /><img src="index_files/figure-html/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##        day_of_week month day     time year section
+## 1              Sat     5  16 22:22:45 2009       1
+## 2              Sat     5  16 22:22:45 2009       1
+## 3              Sat     5  16 22:22:45 2009       1
+## 4              Sat     5  16 22:22:45 2009       1
+## 5              Sat     5  16 22:22:45 2009       1
+## 6              Sat     5  16 22:22:45 2009       1
+## 7              Sat     5  16 22:22:45 2009       1
+## 8              Sat     5  16 22:22:45 2009       1
+## 9              Sun     5  17 15:00:03 2009       1
+## 10             Sun     5  17 15:00:03 2009       1
+## 11             Sun     5  17 15:00:03 2009       1
+## 12             Sun     5  17 15:00:03 2009       1
+## 13             Sun     5  17 15:00:03 2009       1
+## 14             Sun     5  17 15:00:03 2009       1
+## 15             Sun     5  17 15:00:03 2009       1
+## 16             Mon     5  18 14:26:00 2009       1
+## 17             Mon     5  18 14:26:00 2009       1
+## 18             Mon     5  18 14:26:00 2009       1
+## 19             Mon     5  18 14:26:00 2009       1
+## 20             Mon     5  18 14:26:00 2009       1
+## 21             Mon     5  18 14:26:00 2009       1
+## 22             Mon     5  18 14:26:00 2009       1
+## 23             Mon     5  18 14:26:00 2009       1
+## 24             Tue     5  19 17:43:39 2009       1
+## 25             Tue     5  19 17:43:39 2009       1
+## 26             Tue     5  19 17:43:39 2009       1
+## 27             Tue     5  19 17:43:39 2009       1
+## 28             Tue     5  19 17:43:39 2009       1
+## 29             Tue     5  19 17:43:39 2009       1
+## 30             Wed     5  20 13:25:39 2009       1
+## 31             Wed     5  20 13:25:39 2009       1
+## 32             Wed     5  20 13:25:39 2009       1
+## 33             Wed     5  20 13:25:39 2009       1
+## 34             Wed     5  20 22:29:47 2009       1
+## 35             Wed     5  20 22:29:47 2009       1
+## 36             Wed     5  20 22:29:47 2009       1
+## 37             Wed     5  20 22:29:47 2009       1
+## 38             Wed     5  20 22:29:47 2009       1
+## 39             Wed     5  20 22:29:47 2009       1
+## 40             Wed     5  20 22:29:47 2009       1
+## 41             Wed     5  20 22:29:47 2009       1
+## 42             Wed     5  20 22:29:47 2009       1
+## 43             Fri     5  22  2:59:39 2009       1
+## 44             Fri     5  22  2:59:39 2009       1
+## 45             Fri     5  22  2:59:39 2009       1
+## 46             Fri     5  22  2:59:39 2009       1
+## 47             Fri     5  22  2:59:39 2009       1
+## 48             Fri     5  22  2:59:39 2009       1
+## 49             Fri     5  22 16:28:34 2009       1
+## 50             Fri     5  22 16:28:34 2009       1
+## 51             Fri     5  22 16:28:34 2009       1
+## 52             Fri     5  22 16:28:34 2009       1
+## 53             Fri     5  22 16:28:34 2009       1
+## 54             Fri     5  22 16:28:34 2009       1
+## 55             Fri     5  22 16:28:34 2009       1
+## 56             Fri     5  22 16:28:34 2009       1
+## 57             Fri     5  22 16:28:34 2009       1
+## 58             Sat     5  23 16:11:19 2009       1
+## 59             Sat     5  23 16:11:19 2009       1
+## 60             Sat     5  23 16:11:19 2009       1
+## 61             Sat     5  23 16:11:19 2009       1
+## 62             Sat     5  23 16:11:19 2009       1
+## 63             Tue     5  26 14:42:01 2009       1
+## 64             Tue     5  26 14:42:01 2009       1
+## 65             Tue     5  26 14:42:01 2009       1
+## 66             Tue     5  26 14:42:01 2009       1
+## 67             Tue     5  26 14:42:01 2009       1
+## 68             Tue     5  26 14:42:01 2009       1
+## 69             Tue     5  26 14:42:01 2009       1
+## 70             Wed     5  27 14:18:52 2009       2
+## 71             Wed     5  27 14:18:52 2009       2
+## 72             Wed     5  27 14:18:52 2009       2
+## 73             Wed     5  27 14:18:52 2009       2
+## 74             Wed     5  27 14:18:52 2009       2
+## 75             Wed     5  27 14:18:52 2009       2
+## 76             Thu     5  28 18:03:34 2009       2
+## 77             Thu     5  28 18:03:34 2009       2
+## 78             Thu     5  28 18:03:34 2009       2
+## 79             Thu     5  28 18:03:34 2009       2
+## 80             Thu     5  28 18:03:34 2009       2
+## 81             Thu     5  28 18:03:34 2009       2
+## 82             Thu     5  28 18:03:34 2009       2
+## 83             Wed     6   3 18:19:49 2009       2
+## 84             Wed     6   3 18:19:49 2009       2
+## 85             Wed     6   3 18:19:49 2009       2
+## 86             Wed     6   3 18:19:49 2009       2
+## 87             Wed     6   3 18:19:49 2009       2
+## 88             Wed     6   3 18:19:49 2009       2
+## 89             Wed     6   3 18:19:49 2009       2
+## 90             Fri     6   5 18:21:37 2009       2
+## 91             Fri     6   5 18:21:37 2009       2
+## 92             Fri     6   5 18:21:37 2009       2
+## 93             Fri     6   5 18:21:37 2009       2
+## 94             Fri     6   5 18:21:37 2009       2
+## 95             Fri     6   5 18:21:37 2009       2
+## 96             Fri     6   5 18:21:37 2009       2
+## 97             Fri     6   5 18:21:37 2009       2
+## 98             Mon     6   8 20:15:29 2009       2
+## 99             Mon     6   8 20:15:29 2009       2
+## 100            Mon     6   8 20:15:29 2009       2
+## 101            Mon     6   8 20:15:29 2009       2
+## 102            Mon     6   8 20:15:29 2009       2
+## 103            Mon     6   8 20:15:29 2009       2
+## 104            Mon     6   8 20:15:29 2009       2
+## 105            Mon     6   8 20:15:29 2009       2
+## 106            Sun     6  14 14:25:36 2009       2
+## 107            Sun     6  14 14:25:36 2009       2
+## 108            Sun     6  14 14:25:36 2009       2
+## 109            Sun     6  14 14:25:36 2009       2
+## 110            Sun     6  14 14:25:36 2009       2
+## 111            Sun     6  14 14:25:36 2009       2
+## 112            Sun     6  14 14:25:36 2009       2
+## 113            Mon     6  15 23:13:05 2009       2
+## 114            Mon     6  15 23:13:05 2009       2
+## 115            Mon     6  15 23:13:05 2009       2
+## 116            Mon     6  15 23:13:05 2009       2
+## 117            Mon     6  15 23:13:05 2009       2
+## 118            Thu     6  18 13:26:53 2009       2
+## 119            Thu     6  18 13:26:53 2009       2
+## 120            Thu     6  18 13:26:53 2009       2
+## 121            Thu     6  18 13:26:53 2009       2
+## 122            Thu     6  18 13:26:53 2009       2
+## 123            Thu     6  18 13:26:53 2009       2
+## 124            Thu     6  18 13:26:53 2009       2
+## 125            Thu     6  18 13:26:53 2009       2
+## 126            Thu     6  18 13:26:53 2009       2
+## 127            Thu     6  18 13:26:53 2009       2
+## 128            Sun     6  21 14:47:41 2009       2
+## 129            Sun     6  21 14:47:41 2009       2
+## 130            Sun     6  21 14:47:41 2009       2
+## 131            Sun     6  21 14:47:41 2009       2
+## 132            Sun     6  21 14:47:41 2009       2
+## 133            Sun     6  21 14:47:41 2009       2
+## 134            Sun     6  21 14:47:41 2009       2
+## 135            Sun     6  21 14:47:41 2009       2
+## 136            Sun     6  21 14:47:41 2009       2
+## 137            Tue     6  23 13:40:38 2009       2
+## 138            Tue     6  23 13:40:38 2009       2
+## 139            Tue     6  23 13:40:38 2009       2
+## 140            Tue     6  23 13:40:38 2009       2
+## 141            Tue     6  23 13:40:38 2009       2
+## 142            Tue     6  23 13:40:38 2009       2
+##                                                                                                                                                                                                                                                     word
+## 1                                                                                                                                                                                                                                               achiever
+## 2                                                                                                                                                                                                                                               achieves
+## 3                                                                                                                                                                                                                                                plateau
+## 4                                                                                                                                                                                                                                                   it&lt;U+0092&gt;s
+## 5                                                                                                                                                                                                                                              beginning
+## 6                                                                                                                                                                                                                                                 donald
+## 7                                                                                                                                                                                                                                                  trump
+## 8                                                                                                                                                                                                                                   httptinyurlcompqpfvm
+## 9                                                                                                                                                                                                                                                  don&lt;U+0092&gt;t
+## 10                                                                                                                                                                                                                                                afraid
+## 11                                                                                                                                                                                                                                             uniqueits
+## 12                                                                                                                                                                                                                                                afraid
+## 13                                                                                                                                                                                                                                                donald
+## 14                                                                                                                                                                                                                                                 trump
+## 15                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 16                                                                                                                                                                                                                                                   win
+## 17                                                                                                                                                                                                                                                 lives
+## 18                                                                                                                                                                                                                                             champions
+## 19                                                                                                                                                                                                                                                  view
+## 20                                                                                                                                                                                                                                                moment
+## 21                                                                                                                                                                                                                                                donald
+## 22                                                                                                                                                                                                                                                 trump
+## 23                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 24                                                                                                                                                                                                                                                dayswe
+## 25                                                                                                                                                                                                                                                 power
+## 26                                                                                                                                                                                                                                            trumpative
+## 27                                                                                                                                                                                                                                              thinking
+## 28                                                                                                                                                                                                                                     barnesandnoblecom
+## 29                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 30                                                                                                                                                                                                                                             precipice
+## 31                                                                                                                                                                                                                                                donald
+## 32                                                                                                                                                                                                                                                 trump
+## 33                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 34                                                                                                                                                                                                                                                  read
+## 35                                                                                                                                                                                                                                             interview
+## 36                                                                                                                                                                                                                                                donald
+## 37                                                                                                                                                                                                                                                 trump
+## 38                                                                                                                                                                                                                                              appeared
+## 39                                                                                                                                                                                                                                                  york
+## 40                                                                                                                                                                                                                                                 times
+## 41                                                                                                                                                                                                                                              magazine
+## 42                                                                                                                                                                                                                                    httptinyurlcomqsxo
+## 43                                                                                                                                                                                                                                                  fast
+## 44                                                                                                                                                                                                                                                 short
+## 45                                                                                                                                                                                                                                        directwhatever
+## 46                                                                                                                                                                                                                                                donald
+## 47                                                                                                                                                                                                                                                 trump
+## 48                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 49                                                                                                                                                                                                                                                  dont
+## 50                                                                                                                                                                                                                                                forget
+## 51                                                                                                                                                                                                                                                 enter
+## 52                                                                                                                                                                                                                                              champion
+## 53                                                                                                                                                                                                                                                signed
+## 54                                                                                                                                                                                                                                                  book
+## 55                                                                                                                                                                                                                                              keychain
+## 56                                                                                                                                                                                                                                               contest
+## 57                                                                                                                                                                                                              httpwwwtrumpthinklikeachampioncomcontest
+## 58                                                                                                                                                                                                                                                donald
+## 59                                                                                                                                                                                                                                                 trump
+## 60                                                                                                                                                                                                                                              facebook
+## 61                                                                                                                                                                                                                   httpwwwfacebookcomdonaldtrumpbecome
+## 62                                                                                                                                                                                                                                                   fan
+## 63                                                                                                                                                                                                                                                direct
+## 64                                                                                                                                                                                                                                            opposition
+## 65                                                                                                                                                                                                                                               comfort
+## 66                                                                                                                                                                                                                                                  zone
+## 67                                                                                                                                                                                                                                                donald
+## 68                                                                                                                                                                                                                                                 trump
+## 69                                                                                                                                                                                                                                  httptinyurlcompqpfvm
+## 70                                                                                                                                                                                                                                                  read
+## 71                                                                                                                                                                                                                                               excerpt
+## 72                                                                                                                                                                                                                                              champion
+## 73                                                                                                                                                                                                                                                donald
+## 74                                                                                                                                                                                                                                                 trump
+## 75                                                                                                                                                                                                                                         httpbitlyfhpr
+## 76                                                                                                                                                                                                                                                  call
+## 77                                                                                                                                                                                                                                                 quits
+## 78                                                                                                                                                                                                                                                moving
+## 79                                                                                                                                                                                                                                               forward
+## 80                                                                                                                                                                                                                                                donald
+## 81                                                                                                                                                                                                                                                 trump
+## 82                                                                                                                                                                                                                     httpwwwtrumpthinklikeachampioncom
+## 83                                                                                                                                                                                                                                                 check
+## 84                                                                                                                                                                                                                                                donald
+## 85                                                                                                                                                                                                                                                trumps
+## 86                                                                                                                                                                                                                                               igoogle
+## 87                                                                                                                                                                                                                                              showcase
+## 88                                                                                                                                                                                                                                                  page
+## 89                                                                                                                                                                                                                                         httpbitlyddda
+## 90                                                                                                                                                                                                                                                  dont
+## 91                                                                                                                                                                                                                                                 youre
+## 92                                                                                                                                                                                                                                            pretending
+## 93                                                                                                                                                                                                                                                  dont
+## 94                                                                                                                                                                                                                                                   run
+## 95                                                                                                                                                                                                                                              business
+## 96                                                                                                                                                                                                                                                donald
+## 97                                                                                                                                                                                                                             trumphttptinyurlcompqpfvm
+## 98                                                                                                                                                                                                                                                  week
+## 99                                                                                                                                                                                                                                                 enter
+## 100                                                                                                                                                                                                                                             champion
+## 101                                                                                                                                                                                                                                               signed
+## 102                                                                                                                                                                                                                                                 book
+## 103                                                                                                                                                                                                                                             keychain
+## 104                                                                                                                                                                                                                                              contest
+## 105                                                                                                                                                                                                             httpwwwtrumpthinklikeachampioncomcontest
+## 106                                                                                                                                                                                                                                               donald
+## 107                                                                                                                                                                                                                                               trumps
+## 108                                                                                                                                                                                                                                             birthday
+## 109                                                                                                                                                                                                                                                 send
+## 110                                                                                                                                                                                                                                                 bday
+## 111                                                                                                                                                                                                                                               wishes
+## 112                                                                                                                                                                                                                        httpwwwfacebookcomdonaldtrump
+## 113                                                                                                                                                                                                                                           thoughtful
+## 114                                                                                                                                                                                                                                             birthday
+## 115                                                                                                                                                                                                                                               wishes
+## 116                                                                                                                                                                                                                                               donald
+## 117                                                                                                                                                                                                                                                trump
+## 118                                                                                                                                                                                                                                                   fb
+## 119                                                                                                                                                                                                                                               vanity
+## 120                                                                                                                                                                                                                                                 urls
+## 121                                                                                                                                                                                                                                                   sf
+## 122                                                                                                                                                                                                                                       chronicledavid
+## 123                                                                                                                                                                                                                                              beckham
+## 124                                                                                                                                                                                                                                              britney
+## 125                                                                                                                                                                                                                                         spearsdonald
+## 126                                                                                                                                                                                                                                                trump
+## 127                                                                                                                                                                                                                                  httptinyurlcomlnlol
+## 128                                                                                                                                                                                                                                              wishing
+## 129                                                                                                                                                                                                                                                happy
+## 130                                                                                                                                                                                                                                              fathers
+## 131                                                                                                                                                                                                                                                  day
+## 132                                                                                                                                                                                                                                                 dads
+## 133                                                                                                                                                                                                                                             thereyou
+## 134                                                                                                                                                                                                                                             champion
+## 135                                                                                                                                                                                                                                             everyday
+## 136                                                                                                                                                                                                                                   httptinyurlcomknju
+## 137                                                                                                                                                                                                                                               expand
+## 138                                                                                                                                                                                                                                                 life
+## 139                                                                                                                                                                                                                                                  day
+## 140                                                                                                                                                                                                                                               donald
+## 141                                                                                                                                                                                                                                                trump
+## 142                                                                                                                                                                                                                                 httptinyurlcompqpfvm
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 198782 rows ]</code></pre>
+<pre><code>## # A tibble: 7,032,762 × 3
+##        item1     item2     n
+##        &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;
+## 1      trump    donald   904
+## 2     donald     trump   904
+## 3       http     trump   901
+## 4      trump      http   901
+## 5        amp     trump   895
+## 6      trump       amp   895
+## 7  president     trump   784
+## 8      trump president   784
+## 9     people     trump   649
+## 10     trump    people   649
+## # ... with 7,032,752 more rows</code></pre>
+<pre><code>## # A tibble: 6,699 × 3
+##      item1     item2     n
+##      &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;
+## 1  hillary     trump   239
+## 2  hillary   clinton   184
+## 3  hillary       amp   158
+## 4  hillary   america   157
+## 5  hillary    people   156
+## 6  hillary president   120
+## 7  hillary   crooked   114
+## 8  hillary      time   102
+## 9  hillary   country   101
+## 10 hillary    donald    89
+## # ... with 6,689 more rows</code></pre>
+<pre><code>## # A tibble: 2,747,306 × 3
+##          item1       item2 correlation
+##          &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;
+## 1      warming      global   0.9097812
+## 2       global     warming   0.9097812
+## 3       arabia       saudi   0.9039446
+## 4        saudi      arabia   0.9039446
+## 5  brotherhood      muslim   0.8733315
+## 6       muslim brotherhood   0.8733315
+## 7        lance   armstrong   0.7991911
+## 8    armstrong       lance   0.7991911
+## 9       rivers        joan   0.7839041
+## 10        joan      rivers   0.7839041
+## # ... with 2,747,296 more rows</code></pre>
+<pre><code>## Selecting by correlation</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## Selecting by correlation</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## Selecting by correlation</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-5.png" width="672" style="display: block; margin: auto;" /><img src="index_files/figure-html/unnamed-chunk-1-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## # A tibble: 23,165 × 4
+##           word sentiment lexicon score
+##          &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+## 1       abacus     trust     nrc    NA
+## 2      abandon      fear     nrc    NA
+## 3      abandon  negative     nrc    NA
+## 4      abandon   sadness     nrc    NA
+## 5    abandoned     anger     nrc    NA
+## 6    abandoned      fear     nrc    NA
+## 7    abandoned  negative     nrc    NA
+## 8    abandoned   sadness     nrc    NA
+## 9  abandonment     anger     nrc    NA
+## 10 abandonment      fear     nrc    NA
+## # ... with 23,155 more rows</code></pre>
+<pre><code>## # A tibble: 13,901 × 2
+##           word sentiment
+##          &lt;chr&gt;     &lt;chr&gt;
+## 1       abacus     trust
+## 2      abandon      fear
+## 3      abandon  negative
+## 4      abandon   sadness
+## 5    abandoned     anger
+## 6    abandoned      fear
+## 7    abandoned  negative
+## 8    abandoned   sadness
+## 9  abandonment     anger
+## 10 abandonment      fear
+## # ... with 13,891 more rows</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre><code>## # A tibble: 96 × 2
+##            word     n
+##           &lt;chr&gt; &lt;int&gt;
+## 1         white    15
+## 2          good    14
+## 3         happy    13
+## 4  intelligence    13
+## 5     wonderful    13
+## 6          deal    12
+## 7         enjoy    12
+## 8         money    10
+## 9          vote    10
+## 10     optimism     8
+## # ... with 86 more rows</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## Joining, by = &quot;group_id&quot;</code></pre>
+<pre><code>## # A tibble: 98,958 × 4
+##    group_id  word     n  total
+##      &lt;fctr&gt; &lt;chr&gt; &lt;int&gt;  &lt;int&gt;
+## 1     Trump   the 16552 430350
+## 2     Trump    to 10445 430350
+## 3     Trump     a  8593 430350
+## 4     Trump   you  7281 430350
+## 5     Trump    is  7082 430350
+## 6     Trump   and  6630 430350
+## 7     Trump    in  6290 430350
+## 8     Trump    of  6163 430350
+## 9     Trump     i  5936 430350
+## 10    Trump   for  5493 430350
+## # ... with 98,948 more rows</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 1834 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre><code>## # A tibble: 123,992 × 3
+##            document       word     n
+##               &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
+## 1           Trump_1      trump  4855
+## 2  Anti-Immigrant_5 infowarsgt  2649
+## 3           Trump_1  president  1664
+## 4           Trump_1     donald  1504
+## 5           Trump_1     people  1275
+## 6           Trump_1      obama  1176
+## 7           Trump_1    america  1123
+## 8           Trump_1        run   983
+## 9           Trump_1    country   967
+## 10          Trump_1       time   950
+## # ... with 123,982 more rows</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 71, terms: 55274)&gt;&gt;
+## Non-/sparse entries: 123992/3800462
+## Sparsity           : 97%
+## Maximal term length: 241
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## A LDA_VEM topic model with 5 topics.</code></pre>
+<pre><code>## # A tibble: 276,370 × 3
+##    topic       term          beta
+##    &lt;int&gt;      &lt;chr&gt;         &lt;dbl&gt;
+## 1      1      trump  4.389836e-03
+## 2      2      trump  1.440446e-02
+## 3      3      trump  2.477419e-02
+## 4      4      trump  3.989425e-03
+## 5      5      trump  7.937277e-03
+## 6      1 infowarsgt 1.760825e-139
+## 7      2 infowarsgt 2.431427e-147
+## 8      3 infowarsgt 3.668909e-175
+## 9      4 infowarsgt 1.175606e-164
+## 10     5 infowarsgt  9.274654e-02
+## # ... with 276,360 more rows</code></pre>
+<pre><code>## # A tibble: 25 × 3
+##    topic         term        beta
+##    &lt;int&gt;        &lt;chr&gt;       &lt;dbl&gt;
+## 1      1 wallbuilders 0.004877023
+## 2      1        trump 0.004389836
+## 3      1         dont 0.004108535
+## 4      1        david 0.003834137
+## 5      1          day 0.003732307
+## 6      2        trump 0.014404459
+## 7      2       muslim 0.010659898
+## 8      2  immigration 0.005356051
+## 9      2        obama 0.005247463
+## 10     2      illegal 0.004358935
+## # ... with 15 more rows</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## # A tibble: 355 × 3
+##             document topic        gamma
+##                &lt;chr&gt; &lt;int&gt;        &lt;dbl&gt;
+## 1            Trump_1     1 1.604005e-07
+## 2   Anti-Immigrant_5     1 1.275427e-06
+## 3  Anti-Government_6     1 1.617451e-06
+## 4      Anti-Muslim_2     1 1.908431e-06
+## 5       Anti-LGBT_11     1 2.690878e-06
+## 6         Neo-Nazi_7     1 8.721660e-06
+## 7  Anti-Government_3     1 8.389398e-06
+## 8        Anti-LGBT_4     1 9.999937e-01
+## 9      Anti-Muslim_1     1 5.511113e-06
+## 10 Anti-Government_8     1 4.434415e-06
+## # ... with 345 more rows</code></pre>
+<pre><code>## # A tibble: 355 × 4
+##           group_id chapter topic        gamma
+## *            &lt;chr&gt;   &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;
+## 1            Trump       1     1 1.604005e-07
+## 2   Anti-Immigrant       5     1 1.275427e-06
+## 3  Anti-Government       6     1 1.617451e-06
+## 4      Anti-Muslim       2     1 1.908431e-06
+## 5        Anti-LGBT      11     1 2.690878e-06
+## 6         Neo-Nazi       7     1 8.721660e-06
+## 7  Anti-Government       3     1 8.389398e-06
+## 8        Anti-LGBT       4     1 9.999937e-01
+## 9      Anti-Muslim       1     1 5.511113e-06
+## 10 Anti-Government       8     1 4.434415e-06
+## # ... with 345 more rows</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-11.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## # A tibble: 71 × 4
+##             group_id chapter topic     gamma
+##                &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
+## 1          Anti-LGBT       4     1 0.9999937
+## 2     Anti-Immigrant       3     1 0.9999911
+## 3    Anti-Government       5     1 0.9999359
+## 4  White Nationalist      11     1 0.8329440
+## 5  White Nationalist       5     1 0.9999089
+## 6    Anti-Government       9     1 0.9638796
+## 7           Neo-Nazi       8     1 0.9995035
+## 8        Anti-Muslim       4     1 0.9910485
+## 9        Anti-Muslim       2     2 0.9999924
+## 10          Neo-Nazi       7     2 0.9999651
+## # ... with 61 more rows</code></pre>
+<pre><code>## # A tibble: 266 × 5
+##       group_id chapter topic     gamma        consensus
+##          &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;            &lt;chr&gt;
+## 1  Anti-Muslim       2     2 0.9999924  Anti-Government
+## 2  Anti-Muslim       2     2 0.9999924   Anti-Immigrant
+## 3  Anti-Muslim       2     2 0.9999924 Black Separatist
+## 4  Anti-Muslim       2     2 0.9999924              KKK
+## 5  Anti-Muslim       2     2 0.9999924  Neo-Confederate
+## 6  Anti-Muslim       2     2 0.9999924         Neo-Nazi
+## 7     Neo-Nazi       7     2 0.9999651  Anti-Government
+## 8     Neo-Nazi       7     2 0.9999651   Anti-Immigrant
+## 9     Neo-Nazi       7     2 0.9999651      Anti-Muslim
+## 10    Neo-Nazi       7     2 0.9999651 Black Separatist
+## # ... with 256 more rows</code></pre>
+<pre><code>## # A tibble: 123,992 × 4
+##             document  term count .topic
+##                &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1            Trump_1 trump  4855      3
+## 2   Anti-Immigrant_5 trump   214      5
+## 3  Anti-Government_6 trump    58      4
+## 4      Anti-Muslim_2 trump   288      2
+## 5       Anti-LGBT_11 trump    24      4
+## 6         Neo-Nazi_7 trump     5      2
+## 7  Anti-Government_3 trump    10      5
+## 8        Anti-LGBT_4 trump    17      1
+## 9      Anti-Muslim_1 trump    30      2
+## 10 Anti-Government_8 trump   156      2
+## # ... with 123,982 more rows</code></pre>
+<pre><code>## # A tibble: 389,975 × 6
+##              title chapter  term count .topic         consensus
+##              &lt;chr&gt;   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;             &lt;chr&gt;
+## 1            Trump       1 trump  4855      3             Trump
+## 2  Anti-Government       6 trump    58      4         Anti-LGBT
+## 3  Anti-Government       6 trump    58      4  Black Separatist
+## 4  Anti-Government       6 trump    58      4   Neo-Confederate
+## 5  Anti-Government       6 trump    58      4 White Nationalist
+## 6      Anti-Muslim       2 trump   288      2   Anti-Government
+## 7      Anti-Muslim       2 trump   288      2    Anti-Immigrant
+## 8      Anti-Muslim       2 trump   288      2       Anti-Muslim
+## 9      Anti-Muslim       2 trump   288      2  Black Separatist
+## 10     Anti-Muslim       2 trump   288      2               KKK
+## # ... with 389,965 more rows</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-12.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## # A tibble: 308,760 × 6
+##              title chapter  term count .topic         consensus
+##              &lt;chr&gt;   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;             &lt;chr&gt;
+## 1  Anti-Government       6 trump    58      4         Anti-LGBT
+## 2  Anti-Government       6 trump    58      4  Black Separatist
+## 3  Anti-Government       6 trump    58      4   Neo-Confederate
+## 4  Anti-Government       6 trump    58      4 White Nationalist
+## 5      Anti-Muslim       2 trump   288      2   Anti-Government
+## 6      Anti-Muslim       2 trump   288      2    Anti-Immigrant
+## 7      Anti-Muslim       2 trump   288      2  Black Separatist
+## 8      Anti-Muslim       2 trump   288      2               KKK
+## 9      Anti-Muslim       2 trump   288      2   Neo-Confederate
+## 10     Anti-Muslim       2 trump   288      2          Neo-Nazi
+## # ... with 308,750 more rows</code></pre>
+<pre><code>## # A tibble: 234,525 × 4
+##              title         consensus   term     n
+##              &lt;chr&gt;             &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  Anti-Government  Black Separatist    gun   934
+## 2  Anti-Government   Neo-Confederate    gun   934
+## 3  Anti-Government         Anti-LGBT    gun   926
+## 4  Anti-Government White Nationalist    gun   926
+## 5      Anti-Muslim   Anti-Government muslim   614
+## 6      Anti-Muslim    Anti-Immigrant muslim   614
+## 7      Anti-Muslim  Black Separatist muslim   614
+## 8      Anti-Muslim               KKK muslim   614
+## 9      Anti-Muslim   Neo-Confederate muslim   614
+## 10     Anti-Muslim          Neo-Nazi muslim   614
+## # ... with 234,515 more rows</code></pre>
 
 
 
