@@ -1,5 +1,6 @@
 ---
 title: "Donald Trump  Twitter Analysis"
+author: "Ryan Buckner, Raiyan Kabir, Mariam Ghavalyan, Chinmaya Holla"
 ---
 
 This where we an intro would go.
@@ -8,7 +9,7 @@ Text
 Text
 
 
-###Section Title
+###Relationships Between Words
 TextTextTextTextTextTextTextText
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
@@ -129,7 +130,7 @@ bigram_graph <- bigram_counts %>%
 Text
 Text
 Text
-```{r 2015-12-13_sentiment_graph, fig.width=10, fig.height=7}
+```{r 2015-12-13_sentiment_graph, echo=FALSE, fig.width=10, fig.height=7}
 set.seed(2016)
 
 a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
@@ -142,6 +143,9 @@ ggraph(bigram_graph, layout = "fr") +
   theme_void()
 ```
 TEXT ABOUT GRAPH ABOVE
+
+
+
 
 
 ###Section Title
@@ -163,9 +167,6 @@ trump_section_words <- trump1 %>%
 word_pairs <- trump_section_words %>%
   pairwise_count(word, section, sort = TRUE)
 
-word_pairs %>%
-  filter(item1 == "hillary")
-
 #######################################################################################
 #### PAIRWISE CORRELATION
 #######################################################################################
@@ -177,8 +178,9 @@ word_cors <- trump_section_words %>%
   filter(n() >= 20) %>%
   pairwise_cor(word, section, sort = TRUE)
 
-word_cors
 ```
+
+
 
 Religious groups
 ```{r pairwise_correlation_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
@@ -187,7 +189,7 @@ word_cors %>%
   group_by(item1) %>%
   top_n(10) %>%
   ungroup() %>%
-  mutate(item2 = reorder(item2, correlation)) %>%
+  mutate(item2 = reorder(item2, correlation, fill=correlation)) %>%
   ggplot(aes(item2, correlation)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
@@ -205,7 +207,7 @@ word_cors %>%
   top_n(10) %>%
   ungroup() %>%
   mutate(item2 = reorder(item2, correlation)) %>%
-  ggplot(aes(item2, correlation)) +
+  ggplot(aes(item2, correlation, fill=correlation)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
   coord_flip()
@@ -221,7 +223,7 @@ word_cors %>%
   group_by(item1) %>%
   top_n(10) %>%
   ungroup() %>%
-  mutate(item2 = reorder(item2, correlation)) %>%
+  mutate(item2 = reorder(item2, correlation, fill=correlation)) %>%
   ggplot(aes(item2, correlation)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ item1, scales = "free") +
@@ -243,11 +245,9 @@ TextTextTextText
 #######################################################################################
 #######################################################################################
 
-sentiments
+#get_sentiments("nrc")
 
-get_sentiments("nrc")
-
-mySentiment <- get_nrc_sentiment(trump1$text)
+#mySentiment <- get_nrc_sentiment(trump1$text)
 #######################################################################################
 #### SENTIMENT ANALYSIS WITH INNER JOIN
 #######################################################################################
@@ -306,7 +306,7 @@ Explanation of graph
 
 
 ###Topic Modeling
-```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
+```{r, echo = FALSE, warning=FALSE, message=FALSE, fig.align='center'}
 #######################################################################################
 #######################################################################################
 #######################################################################################
@@ -333,7 +333,6 @@ word_counts <- by_chapter_word %>%
   count(document, word, sort = TRUE) %>%
   ungroup()
 
-word_counts
 
 #######################################################################################
 #### LDA ON CHAPTERS
@@ -342,15 +341,12 @@ word_counts
 chapters_dtm <- word_counts %>%
   cast_dtm(document, word, n)
 
-chapters_dtm
 
 chapters_lda <- LDA(chapters_dtm, k = 11, control = list(seed = 1234))
 
-chapters_lda
 
 chapter_topics <- tidy(chapters_lda, matrix = "beta")
 
-chapter_topics
 
 top_terms <- chapter_topics %>%
   group_by(topic) %>%
@@ -373,7 +369,7 @@ top_terms %>%
 Explanation of graph
 
 
-#Per Document Classification
+###Per Document Classification
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 #######################################################################################
 #### PER DOCUMENT CLASSIFICATION
@@ -436,7 +432,6 @@ assignments %>%
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 wrong_words <- assignments %>%
   filter(title != consensus)
-
 ```
 
 ```{r wrong_words_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
@@ -444,4 +439,8 @@ wrong_words %>%
   count(title, consensus, term, wt = count) %>%
   ungroup() %>%
   arrange(desc(n))
-  ```
+```
+  
+###Conclusion
+  
+  

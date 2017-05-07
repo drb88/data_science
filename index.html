@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Ryan Buckner, Raiyan Kabir, Mariam Ghavalyan, Chinmaya Holla" />
 
 
 <title>Donald Trump Twitter Analysis</title>
@@ -194,13 +195,14 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Donald Trump Twitter Analysis</h1>
+<h4 class="author"><em>Ryan Buckner, Raiyan Kabir, Mariam Ghavalyan, Chinmaya Holla</em></h4>
 
 </div>
 
 
 <p>This where we an intro would go. Texty Text Text</p>
-<div id="section-title" class="section level3">
-<h3>Section Title</h3>
+<div id="relationships-between-words" class="section level3">
+<h3>Relationships Between Words</h3>
 <p>TextTextTextTextTextTextTextText</p>
 <pre><code>## # A tibble: 177,497 × 2
 ##           bigram     n
@@ -216,85 +218,18 @@ $(document).ready(function () {
 ## 9          to be   702
 ## 10 for president   691
 ## # ... with 177,487 more rows</code></pre>
-<p>Text Text Text</p>
-<pre class="r"><code>set.seed(2016)
-
-a &lt;- grid::arrow(type = &quot;closed&quot;, length = unit(.15, &quot;inches&quot;))
-
-ggraph(bigram_graph, layout = &quot;fr&quot;) +
-  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
-                 arrow = a, end_cap = circle(.07, &#39;inches&#39;)) +
-  geom_node_point(color = &quot;lightblue&quot;, size = 5) +
-  geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
-  theme_void()</code></pre>
-<p><img src="index_files/figure-html/2015-12-13_sentiment_graph-1.png" width="960" /> TEXT ABOUT GRAPH ABOVE</p>
+<p>Text Text Text <img src="index_files/figure-html/2015-12-13_sentiment_graph-1.png" width="960" /> TEXT ABOUT GRAPH ABOVE</p>
 </div>
-<div id="section-title-1" class="section level3">
+<div id="section-title" class="section level3">
 <h3>Section Title</h3>
 <p>texttexttexttexttexttexttext</p>
-<pre><code>## # A tibble: 6,699 × 3
-##      item1     item2     n
-##      &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;
-## 1  hillary     trump   239
-## 2  hillary   clinton   184
-## 3  hillary       amp   158
-## 4  hillary   america   157
-## 5  hillary    people   156
-## 6  hillary president   120
-## 7  hillary   crooked   114
-## 8  hillary      time   102
-## 9  hillary   country   101
-## 10 hillary    donald    89
-## # ... with 6,689 more rows</code></pre>
-<pre><code>## # A tibble: 2,747,306 × 3
-##          item1       item2 correlation
-##          &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;
-## 1      warming      global   0.9097812
-## 2       global     warming   0.9097812
-## 3       arabia       saudi   0.9039446
-## 4        saudi      arabia   0.9039446
-## 5  brotherhood      muslim   0.8733315
-## 6       muslim brotherhood   0.8733315
-## 7        lance   armstrong   0.7991911
-## 8    armstrong       lance   0.7991911
-## 9       rivers        joan   0.7839041
-## 10        joan      rivers   0.7839041
-## # ... with 2,747,296 more rows</code></pre>
 <p>Religious groups <img src="index_files/figure-html/pairwise_correlation_graph-1.png" width="960" /> graph description</p>
 <p>Politicians <img src="index_files/figure-html/pairwise_correlation_two_graph-1.png" width="960" /> graph description</p>
 <p>Policies <img src="index_files/figure-html/pairwise_correlation_three_graph-1.png" width="960" /> graph description</p>
 </div>
-<div id="section-title-2" class="section level3">
+<div id="section-title-1" class="section level3">
 <h3>Section Title</h3>
 <p>TextTextTextText</p>
-<pre><code>## # A tibble: 23,165 × 4
-##           word sentiment lexicon score
-##          &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
-## 1       abacus     trust     nrc    NA
-## 2      abandon      fear     nrc    NA
-## 3      abandon  negative     nrc    NA
-## 4      abandon   sadness     nrc    NA
-## 5    abandoned     anger     nrc    NA
-## 6    abandoned      fear     nrc    NA
-## 7    abandoned  negative     nrc    NA
-## 8    abandoned   sadness     nrc    NA
-## 9  abandonment     anger     nrc    NA
-## 10 abandonment      fear     nrc    NA
-## # ... with 23,155 more rows</code></pre>
-<pre><code>## # A tibble: 13,901 × 2
-##           word sentiment
-##          &lt;chr&gt;     &lt;chr&gt;
-## 1       abacus     trust
-## 2      abandon      fear
-## 3      abandon  negative
-## 4      abandon   sadness
-## 5    abandoned     anger
-## 6    abandoned      fear
-## 7    abandoned  negative
-## 8    abandoned   sadness
-## 9  abandonment     anger
-## 10 abandonment      fear
-## # ... with 13,891 more rows</code></pre>
 <p><img src="index_files/figure-html/sentiment_all_tweets_graph-1.png" width="960" /></p>
 <pre><code>## # A tibble: 96 × 2
 ##            word     n
@@ -314,40 +249,6 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
 </div>
 <div id="topic-modeling" class="section level3">
 <h3>Topic Modeling</h3>
-<pre><code>## # A tibble: 123,992 × 3
-##            document       word     n
-##               &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
-## 1           Trump_1      trump  4855
-## 2  Anti-Immigrant_5 infowarsgt  2649
-## 3           Trump_1  president  1664
-## 4           Trump_1     donald  1504
-## 5           Trump_1     people  1275
-## 6           Trump_1      obama  1176
-## 7           Trump_1    america  1123
-## 8           Trump_1        run   983
-## 9           Trump_1    country   967
-## 10          Trump_1       time   950
-## # ... with 123,982 more rows</code></pre>
-<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 71, terms: 55274)&gt;&gt;
-## Non-/sparse entries: 123992/3800462
-## Sparsity           : 97%
-## Maximal term length: 241
-## Weighting          : term frequency (tf)</code></pre>
-<pre><code>## A LDA_VEM topic model with 11 topics.</code></pre>
-<pre><code>## # A tibble: 608,014 × 3
-##    topic  term        beta
-##    &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
-## 1      1 trump 0.001370379
-## 2      2 trump 0.014619746
-## 3      3 trump 0.028054283
-## 4      4 trump 0.003283248
-## 5      5 trump 0.021138817
-## 6      6 trump 0.011440835
-## 7      7 trump 0.015145815
-## 8      8 trump 0.010123408
-## 9      9 trump 0.007468456
-## 10    10 trump 0.007005081
-## # ... with 608,004 more rows</code></pre>
 <pre><code>## # A tibble: 55 × 3
 ##    topic         term        beta
 ##    &lt;int&gt;        &lt;chr&gt;       &lt;dbl&gt;
@@ -364,8 +265,8 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
 ## # ... with 45 more rows</code></pre>
 <p>TextTextTextText <img src="index_files/figure-html/topic_graph-1.png" width="960" /> Explanation of graph</p>
 </div>
-<div id="per-document-classification" class="section level1">
-<h1>Per Document Classification</h1>
+<div id="per-document-classification" class="section level3">
+<h3>Per Document Classification</h3>
 <pre><code>## # A tibble: 71 × 4
 ##             group_id chapter topic     gamma
 ##                &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
@@ -409,6 +310,9 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
 ## 9      Anti-Muslim   Neo-Confederate  trump   324
 ## 10 Anti-Government    Anti-Immigrant  trump   319
 ## # ... with 111,401 more rows</code></pre>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
 </div>
 
 
