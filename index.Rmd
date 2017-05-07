@@ -3,11 +3,14 @@ title: "Donald Trump  Twitter Analysis"
 author: "Ryan Buckner, Raiyan Kabir, Mariam Ghavalyan, Chinmaya Holla"
 ---
 
-This where we an intro would go.
+###Introduction
+
+
 Texty
 Text
-Text
+Text  
 
+&nbsp;
 
 ###Relationships Between Words
 TextTextTextTextTextTextTextText
@@ -145,10 +148,10 @@ ggraph(bigram_graph, layout = "fr") +
 TEXT ABOUT GRAPH ABOVE
 
 
+&nbsp;
 
 
-
-###Section Title
+###Pairwise Correlation
 texttexttexttexttexttexttext
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
@@ -182,7 +185,7 @@ word_cors <- trump_section_words %>%
 
 
 
-Religious groups
+- Religious groups
 ```{r pairwise_correlation_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("christian", "jewish", "muslim", "athiest", "god")) %>%
@@ -197,9 +200,10 @@ word_cors %>%
 ```
 graph description
 
+&nbsp;
 
 
-Politicians
+- Politicians
 ```{r pairwise_correlation_two_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("hillary", "jeb", "ted", "bernie")) %>%
@@ -214,9 +218,10 @@ word_cors %>%
 ```
 graph description
 
+&nbsp;
 
 
-Policies
+- Policies
 ```{r pairwise_correlation_three_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("healthcare", "economy", "immigration", "war", "terror")) %>%
@@ -231,7 +236,9 @@ word_cors %>%
 ```
 graph description
 
-Policies
+&nbsp;
+
+- Race
 ```{r pairwise_correlation_four_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("white", "black", "hispanic", "arab")) %>%
@@ -246,10 +253,11 @@ word_cors %>%
 ```
 graph description
 
+&nbsp;
 
-###Section Title
+###Sentiment Analysis
 TextTextTextText
-
+&nbsp;
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 #######################################################################################
 #######################################################################################
@@ -271,7 +279,7 @@ mySentiment <- get_nrc_sentiment(trump1$text)
 
 tweets <- cbind(trump1, mySentiment)
 ```
-
+- Total sentiment score for all tweets
 ```{r sentiment_all_tweets_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 sentimentTotals <- data.frame(colSums(tweets[,c(7:16)]))
 names(sentimentTotals) <- "count"
@@ -282,12 +290,13 @@ ggplot(data = sentimentTotals, aes(x = sentiment, y = count)) +
   theme(legend.position = "none") +
   xlab("Sentiment") + ylab("Total Count") + ggtitle("Total Sentiment Score for All Tweets")
 ```
+description of graph above
 
-
+&nbsp;
 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, fig.align='center'}
-tidy_books <- trump1 %>%
+tidy_trump <- trump1 %>%
   group_by(year) %>%
   mutate(linenumber = row_number(),
          chapter = cumsum(str_detect(text, regex("^chapter [\\divxlc]", 
@@ -303,7 +312,7 @@ nrcjoy <- get_sentiments("nrc") %>%
  # inner_join(nrcjoy) %>%
  # count(word, sort = TRUE)
 
-trumpsentiment <- tidy_books %>%
+trumpsentiment <- tidy_trump %>%
   inner_join(get_sentiments("nrc")) %>%
   count(year, index = linenumber %/% 1, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
@@ -311,15 +320,18 @@ trumpsentiment <- tidy_books %>%
 ```
 
 
-TextTextTextTextTextText
+- Sentiment per tweet
 ```{r sentiment_timeline_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 ggplot(trumpsentiment, aes(index, sentiment, fill = year)) +
   geom_col(show.legend = FALSE) 
 ```
 Explanation of graph
 
+&nbsp;
 
 ###Topic Modeling
+Text Text Text
+&nbsp;
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, fig.align='center'}
 #######################################################################################
 #######################################################################################
@@ -330,7 +342,7 @@ Explanation of graph
 #######################################################################################
 
 # divide into documents, each representing one chapter
-by_chapter <- hate %>%
+by_handle <- hate %>%
   group_by(group_id) %>%
   mutate(chapter = cumsum(str_detect(value, regex("^asdf ", ignore_case = TRUE)))) %>%
   ungroup() %>%
@@ -338,11 +350,11 @@ by_chapter <- hate %>%
   unite(document, group_id, chapter)
 
 # split into words
-by_chapter_word <- by_chapter %>%
+by_handle_word <- by_handle %>%
   unnest_tokens(word, value)
 
 # find document-word counts
-word_counts <- by_chapter_word %>%
+word_counts <- by_handle_word %>%
   anti_join(stop_words) %>%
   count(document, word, sort = TRUE) %>%
   ungroup()
@@ -352,24 +364,24 @@ word_counts <- by_chapter_word %>%
 #### LDA ON CHAPTERS
 #######################################################################################
 
-chapters_dtm <- word_counts %>%
+handle_dtm <- word_counts %>%
   cast_dtm(document, word, n)
 
 
-chapters_lda <- LDA(chapters_dtm, k = 11, control = list(seed = 1234))
+handle_lda <- LDA(handle_dtm, k = 11, control = list(seed = 1234))
 
 
-chapter_topics <- tidy(chapters_lda, matrix = "beta")
+handle_topics <- tidy(handle_lda, matrix = "beta")
 
 
-top_terms <- chapter_topics %>%
+top_terms <- handle_topics %>%
   group_by(topic) %>%
   top_n(5, beta) %>%
   ungroup() %>%
   arrange(topic, -beta)
 ```
 
-TextTextTextText
+- LDA by ideological group
 ```{r topic_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 top_terms %>%
   mutate(term = reorder(term, beta)) %>%
@@ -380,51 +392,53 @@ top_terms %>%
 ```
 Explanation of graph
 
+&nbsp;
 
 ###Per Document Classification
+Text text text text
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 #######################################################################################
 #### PER DOCUMENT CLASSIFICATION
 #######################################################################################
 
-chapters_gamma <- tidy(chapters_lda, matrix = "gamma")
+handle_gamma <- tidy(handle_lda, matrix = "gamma")
 
 
-chapters_gamma <- chapters_gamma %>%
+handle_gamma <- handle_gamma %>%
   separate(document, c("group_id", "chapter"), sep = "_", convert = TRUE)
 
 
-chapter_classifications <- chapters_gamma %>%
+handle_classifications <- handle_gamma %>%
   group_by(group_id, chapter) %>%
   top_n(1, gamma) %>%
   ungroup()
 
-chapter_classifications
+handle_classifications
 
-book_topics <- chapter_classifications %>%
+handle_topics <- handle_classifications %>%
   count(group_id, topic) %>%
   group_by(group_id) %>%
   top_n(1, n) %>%
   ungroup() %>%
   transmute(consensus = group_id, topic)
 
-chapter_classifications %>%
-  inner_join(book_topics, by = "topic") %>%
+handle_classifications %>%
+  inner_join(handle_topics, by = "topic") %>%
   filter(group_id != consensus)
 
 #######################################################################################
 #### BY WORD ASSIGNMENTS: AUGMENT
 #######################################################################################
-chapters_lda <- LDA(chapters_dtm, k = 5, control = list(seed = 1234))
+handle_lda <- LDA(handle_dtm, k = 5, control = list(seed = 1234))
 
-assignments <- augment(chapters_lda, data = chapters_dtm)
+assignments <- augment(handle_lda, data = handle_dtm)
 
 assignments <- assignments %>%
   separate(document, c("title", "chapter"), sep = "_", convert = TRUE) %>%
-  inner_join(book_topics, by = c(".topic" = "topic"))
+  inner_join(handle_topics, by = c(".topic" = "topic"))
 
 ```
-Explanation of graph
+- Confusion matrix
 ```{r assignments_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 assignments %>%
   count(title, consensus, wt = count) %>%
@@ -436,16 +450,19 @@ assignments %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1),
         panel.grid = element_blank()) +
-  labs(x = "Book words were assigned to",
-       y = "Book words came from",
+  labs(x = "Ideological group tweets were assigned to",
+       y = "Ideologial group tweets came from",
        fill = "% of assignments")
 ```
+Explanation of graph
+
+&nbsp;
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE, fig.align='center'}
 wrong_words <- assignments %>%
   filter(title != consensus)
 ```
-
+- Wrong words
 ```{r wrong_words_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 wrong_words %>%
   count(title, consensus, term, wt = count) %>%
