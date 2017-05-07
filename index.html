@@ -260,272 +260,155 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
 ## 9       rivers        joan   0.7839041
 ## 10        joan      rivers   0.7839041
 ## # ... with 2,747,296 more rows</code></pre>
-<p>Religious groups</p>
-<pre class="r"><code>word_cors %&gt;%
-  filter(item1 %in% c(&quot;christian&quot;, &quot;jewish&quot;, &quot;muslim&quot;, &quot;athiest&quot;)) %&gt;%
-  group_by(item1) %&gt;%
-  top_n(10) %&gt;%
-  ungroup() %&gt;%
-  mutate(item2 = reorder(item2, correlation)) %&gt;%
-  ggplot(aes(item2, correlation)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  facet_wrap(~ item1, scales = &quot;free&quot;) +
-  coord_flip()</code></pre>
-<p><img src="index_files/figure-html/pairwise_correlation_graph-1.png" width="960" /></p>
-<p>Politicians</p>
-<pre class="r"><code>word_cors %&gt;%
-  filter(item1 %in% c(&quot;hillary&quot;, &quot;jeb&quot;, &quot;ted&quot;, &quot;bernie&quot;)) %&gt;%
-  group_by(item1) %&gt;%
-  top_n(10) %&gt;%
-  ungroup() %&gt;%
-  mutate(item2 = reorder(item2, correlation)) %&gt;%
-  ggplot(aes(item2, correlation)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  facet_wrap(~ item1, scales = &quot;free&quot;) +
-  coord_flip()</code></pre>
-<p><img src="index_files/figure-html/pairwise_correlation_two_graph-1.png" width="960" /></p>
-<p>Policies</p>
-<pre class="r"><code>word_cors %&gt;%
-  filter(item1 %in% c(&quot;healthcare&quot;, &quot;economy&quot;, &quot;immigration&quot;, &quot;globalization&quot;, &quot;terror&quot;)) %&gt;%
-  group_by(item1) %&gt;%
-  top_n(10) %&gt;%
-  ungroup() %&gt;%
-  mutate(item2 = reorder(item2, correlation)) %&gt;%
-  ggplot(aes(item2, correlation)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  facet_wrap(~ item1, scales = &quot;free&quot;) +
-  coord_flip()</code></pre>
-<p><img src="index_files/figure-html/pairwise_correlation_three_graph-1.png" width="960" /></p>
-<p>set.seed(2016)</p>
-<p>word_cors %&gt;% filter(correlation &gt; .15) %&gt;% graph_from_data_frame() %&gt;% ggraph(layout = “fr”) + geom_edge_link(aes(edge_alpha = correlation), show.legend = FALSE) + geom_node_point(color = “lightblue”, size = 5) + geom_node_text(aes(label = name), repel = TRUE) + theme_void()</p>
-<div id="section" class="section level87">
-<p></p>
+<p>Religious groups <img src="index_files/figure-html/pairwise_correlation_graph-1.png" width="960" /> graph description</p>
+<p>Politicians <img src="index_files/figure-html/pairwise_correlation_two_graph-1.png" width="960" /> graph description</p>
+<p>Policies <img src="index_files/figure-html/pairwise_correlation_three_graph-1.png" width="960" /> graph description</p>
 </div>
-<div id="section-1" class="section level87">
-<p></p>
+<div id="section-title-2" class="section level3">
+<h3>Section Title</h3>
+<p>TextTextTextText</p>
+<pre><code>## # A tibble: 23,165 × 4
+##           word sentiment lexicon score
+##          &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+## 1       abacus     trust     nrc    NA
+## 2      abandon      fear     nrc    NA
+## 3      abandon  negative     nrc    NA
+## 4      abandon   sadness     nrc    NA
+## 5    abandoned     anger     nrc    NA
+## 6    abandoned      fear     nrc    NA
+## 7    abandoned  negative     nrc    NA
+## 8    abandoned   sadness     nrc    NA
+## 9  abandonment     anger     nrc    NA
+## 10 abandonment      fear     nrc    NA
+## # ... with 23,155 more rows</code></pre>
+<pre><code>## # A tibble: 13,901 × 2
+##           word sentiment
+##          &lt;chr&gt;     &lt;chr&gt;
+## 1       abacus     trust
+## 2      abandon      fear
+## 3      abandon  negative
+## 4      abandon   sadness
+## 5    abandoned     anger
+## 6    abandoned      fear
+## 7    abandoned  negative
+## 8    abandoned   sadness
+## 9  abandonment     anger
+## 10 abandonment      fear
+## # ... with 13,891 more rows</code></pre>
+<p><img src="index_files/figure-html/sentiment_all_tweets_graph-1.png" width="960" /></p>
+<pre><code>## # A tibble: 96 × 2
+##            word     n
+##           &lt;chr&gt; &lt;int&gt;
+## 1         white    15
+## 2          good    14
+## 3         happy    13
+## 4  intelligence    13
+## 5     wonderful    13
+## 6          deal    12
+## 7         enjoy    12
+## 8         money    10
+## 9          vote    10
+## 10     optimism     8
+## # ... with 86 more rows</code></pre>
+<p>TextTextTextTextTextText <img src="index_files/figure-html/sentiment_timeline_graph-1.png" width="960" /> Explanation of graph</p>
 </div>
-<div id="section-2" class="section level87">
-<p></p>
+<div id="topic-modeling" class="section level3">
+<h3>Topic Modeling</h3>
+<pre><code>## # A tibble: 123,992 × 3
+##            document       word     n
+##               &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
+## 1           Trump_1      trump  4855
+## 2  Anti-Immigrant_5 infowarsgt  2649
+## 3           Trump_1  president  1664
+## 4           Trump_1     donald  1504
+## 5           Trump_1     people  1275
+## 6           Trump_1      obama  1176
+## 7           Trump_1    america  1123
+## 8           Trump_1        run   983
+## 9           Trump_1    country   967
+## 10          Trump_1       time   950
+## # ... with 123,982 more rows</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 71, terms: 55274)&gt;&gt;
+## Non-/sparse entries: 123992/3800462
+## Sparsity           : 97%
+## Maximal term length: 241
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## A LDA_VEM topic model with 11 topics.</code></pre>
+<pre><code>## # A tibble: 608,014 × 3
+##    topic  term        beta
+##    &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1      1 trump 0.001370379
+## 2      2 trump 0.014619746
+## 3      3 trump 0.028054283
+## 4      4 trump 0.003283248
+## 5      5 trump 0.021138817
+## 6      6 trump 0.011440835
+## 7      7 trump 0.015145815
+## 8      8 trump 0.010123408
+## 9      9 trump 0.007468456
+## 10    10 trump 0.007005081
+## # ... with 608,004 more rows</code></pre>
+<pre><code>## # A tibble: 55 × 3
+##    topic         term        beta
+##    &lt;int&gt;        &lt;chr&gt;       &lt;dbl&gt;
+## 1      1         live 0.009985145
+## 2      1      baldwin 0.008341641
+## 3      1 wallbuilders 0.008053998
+## 4      1        chuck 0.008012125
+## 5      1         page 0.006309123
+## 6      2  immigration 0.016387526
+## 7      2        trump 0.014619746
+## 8      2      illegal 0.013610987
+## 9      2    sanctuary 0.012709502
+## 10     2          nsm 0.012644923
+## # ... with 45 more rows</code></pre>
+<p>TextTextTextText <img src="index_files/figure-html/topic_graph-1.png" width="960" /> Explanation of graph</p>
 </div>
-<div id="sentiment-analysis" class="section level4">
-<h4>SENTIMENT ANALYSIS</h4>
-<div id="section-3" class="section level87">
-<p></p>
-</div>
-<div id="section-4" class="section level87">
-<p></p>
-</div>
-<div id="section-5" class="section level87">
-<p></p>
-<p>sentiments</p>
-<p>get_sentiments(“nrc”)</p>
-<p>mySentiment &lt;- get_nrc_sentiment(trump1$text) ####################################################################################### #### SENTIMENT ANALYSIS WITH INNER JOIN #######################################################################################</p>
-<p>mySentiment &lt;- get_nrc_sentiment(trump1$text)</p>
-<p>tweets &lt;- cbind(trump1, mySentiment)</p>
-<p>sentimentTotals &lt;- data.frame(colSums(tweets[,c(7:16)])) names(sentimentTotals) &lt;- “count” sentimentTotals &lt;- cbind(“sentiment” = rownames(sentimentTotals), sentimentTotals) rownames(sentimentTotals) &lt;- NULL ggplot(data = sentimentTotals, aes(x = sentiment, y = count)) + geom_bar(aes(fill = sentiment), stat = “identity”) + theme(legend.position = “none”) + xlab(“Sentiment”) + ylab(“Total Count”) + ggtitle(“Total Sentiment Score for All Tweets”)</p>
-</div>
-</div>
-<div id="section-6" class="section level4">
-<h4></h4>
-<p>tidy_books &lt;- trump1 %&gt;% group_by(year) %&gt;% mutate(linenumber = row_number(), chapter = cumsum(str_detect(text, regex(“^chapter [\divxlc]”, ignore_case = TRUE)))) %&gt;% ungroup() %&gt;% unnest_tokens(word, text)</p>
-<p>nrcjoy &lt;- get_sentiments(“nrc”) %&gt;% filter(sentiment == “joy”)</p>
-<p>tidy_books %&gt;% filter(year == “2017”) %&gt;% inner_join(nrcjoy) %&gt;% count(word, sort = TRUE)</p>
-<p>trumpsentiment &lt;- tidy_books %&gt;% inner_join(get_sentiments(“nrc”)) %&gt;% count(year, index = linenumber %/% 1, sentiment) %&gt;% spread(sentiment, n, fill = 0) %&gt;% mutate(sentiment = positive - negative)</p>
-<p>ggplot(trumpsentiment, aes(index, sentiment, fill = year)) + geom_col(show.legend = FALSE)</p>
-<div id="section-7" class="section level87">
-<p></p>
-</div>
-<div id="section-8" class="section level87">
-<p></p>
-</div>
-<div id="section-9" class="section level87">
-<p></p>
-</div>
-</div>
-<div id="term-frequency" class="section level4">
-<h4>TERM FREQUENCY</h4>
-<div id="section-10" class="section level87">
-<p></p>
-</div>
-<div id="section-11" class="section level87">
-<p></p>
-</div>
-<div id="section-12" class="section level87">
-<p></p>
-<p>book_words &lt;- hate %&gt;% unnest_tokens(word, value) %&gt;% count(group_id, word, sort = TRUE) %&gt;% ungroup()</p>
-<p>total_words &lt;- book_words %&gt;% group_by(group_id) %&gt;% summarize(total = sum(n))</p>
-<p>book_words &lt;- left_join(book_words, total_words)</p>
-<p>book_words</p>
-<p>ggplot(book_words, aes(n/total, fill = group_id)) + geom_histogram(show.legend = FALSE) + xlim(NA, 0.0009) + facet_wrap(~group_id, ncol = 2, scales = “free_y”)</p>
-</div>
-<div id="section-13" class="section level87">
-<p></p>
-</div>
-</div>
-<div id="the-bind_tf_idf-function" class="section level4">
-<h4>THE BIND_TF_IDF FUNCTION</h4>
-<div id="section-14" class="section level87">
-<p></p>
-</div>
-</div>
-</div>
-<div id="book_words---book_words" class="section level1">
-<h1>book_words &lt;- book_words %&gt;%</h1>
-</div>
-<div id="bind_tf_idfword-group_id-n" class="section level1">
-<h1>bind_tf_idf(word, group_id, n)</h1>
-</div>
-<div id="book_words" class="section level1">
-<h1>book_words</h1>
-</div>
-<div id="book_words-1" class="section level1">
-<h1>book_words %&gt;%</h1>
-</div>
-<div id="select-total" class="section level1">
-<h1>select(-total) %&gt;%</h1>
-</div>
-<div id="arrangedesctf_idf" class="section level1">
-<h1>arrange(desc(tf_idf))</h1>
-</div>
-<div id="plot_austen---book_words" class="section level1">
-<h1>plot_austen &lt;- book_words %&gt;%</h1>
-</div>
-<div id="arrangedesctf_idf-1" class="section level1">
-<h1>arrange(desc(tf_idf)) %&gt;%</h1>
-</div>
-<div id="mutateword-factorword-levels-revuniqueword" class="section level1">
-<h1>mutate(word = factor(word, levels = rev(unique(word))))</h1>
-</div>
-<div id="plot_austen" class="section level1">
-<h1>plot_austen %&gt;%</h1>
-</div>
-<div id="top_n20" class="section level1">
-<h1>top_n(20) %&gt;%</h1>
-</div>
-<div id="ggplotaesword-tf_idf-fill-group_id" class="section level1">
-<h1>ggplot(aes(word, tf_idf, fill = group_id)) +</h1>
-</div>
-<div id="geom_col" class="section level1">
-<h1>geom_col() +</h1>
-</div>
-<div id="labsx-null-y-tf-idf" class="section level1">
-<h1>labs(x = NULL, y = “tf-idf”) +</h1>
-</div>
-<div id="coord_flip" class="section level1">
-<h1>coord_flip()</h1>
-</div>
-<div id="plot_austen-1" class="section level1">
-<h1>plot_austen %&gt;%</h1>
-</div>
-<div id="group_bygroup_id" class="section level1">
-<h1>group_by(group_id) %&gt;%</h1>
-</div>
-<div id="top_n15" class="section level1">
-<h1>top_n(15) %&gt;%</h1>
-</div>
-<div id="ungroup" class="section level1">
-<h1>ungroup %&gt;%</h1>
-</div>
-<div id="ggplotaesword-tf_idf-fill-group_id-1" class="section level1">
-<h1>ggplot(aes(word, tf_idf, fill = group_id)) +</h1>
-</div>
-<div id="geom_colshow.legend-false" class="section level1">
-<h1>geom_col(show.legend = FALSE) +</h1>
-</div>
-<div id="labsx-null-y-tf-idf-1" class="section level1">
-<h1>labs(x = NULL, y = “tf-idf”) +</h1>
-</div>
-<div id="facet_wrapgroup_id-ncol-2-scales-free" class="section level1">
-<h1>facet_wrap(~group_id, ncol = 2, scales = “free”) +</h1>
-</div>
-<div id="coord_flip-1" class="section level1">
-<h1>coord_flip()</h1>
-<div id="section-15" class="section level87">
-<p></p>
-</div>
-<div id="section-16" class="section level87">
-<p></p>
-</div>
-<div id="section-17" class="section level87">
-<p></p>
-</div>
-<div id="topic-modeling" class="section level4">
-<h4>TOPIC MODELING</h4>
-<div id="section-18" class="section level87">
-<p></p>
-</div>
-<div id="section-19" class="section level87">
-<p></p>
-</div>
-<div id="section-20" class="section level87">
-<p></p>
-</div>
-</div>
-</div>
-<div id="divide-into-documents-each-representing-one-chapter" class="section level1">
-<h1>divide into documents, each representing one chapter</h1>
-<p>by_chapter &lt;- hate %&gt;% group_by(group_id) %&gt;% mutate(chapter = cumsum(str_detect(value, regex(“^asdf”, ignore_case = TRUE)))) %&gt;% ungroup() %&gt;% filter(chapter &gt; 0) %&gt;% unite(document, group_id, chapter)</p>
-</div>
-<div id="split-into-words" class="section level1">
-<h1>split into words</h1>
-<p>by_chapter_word &lt;- by_chapter %&gt;% unnest_tokens(word, value)</p>
-</div>
-<div id="find-document-word-counts" class="section level1">
-<h1>find document-word counts</h1>
-<p>word_counts &lt;- by_chapter_word %&gt;% anti_join(stop_words) %&gt;% count(document, word, sort = TRUE) %&gt;% ungroup()</p>
-<p>word_counts</p>
-<div id="section-21" class="section level87">
-<p></p>
-</div>
-<div id="lda-on-chapters" class="section level4">
-<h4>LDA ON CHAPTERS</h4>
-<div id="section-22" class="section level87">
-<p></p>
-<p>chapters_dtm &lt;- word_counts %&gt;% cast_dtm(document, word, n)</p>
-<p>chapters_dtm</p>
-<p>chapters_lda &lt;- LDA(chapters_dtm, k = 5, control = list(seed = 1234))</p>
-<p>chapters_lda</p>
-<p>chapter_topics &lt;- tidy(chapters_lda, matrix = “beta”)</p>
-<p>chapter_topics</p>
-<p>top_terms &lt;- chapter_topics %&gt;% group_by(topic) %&gt;% top_n(5, beta) %&gt;% ungroup() %&gt;% arrange(topic, -beta)</p>
-<p>top_terms</p>
-<p>top_terms %&gt;% mutate(term = reorder(term, beta)) %&gt;% ggplot(aes(term, beta, fill = factor(topic))) + geom_col(show.legend = FALSE) + facet_wrap(~ topic, scales = “free”) + coord_flip()</p>
-</div>
-<div id="section-23" class="section level87">
-<p></p>
-</div>
-</div>
-<div id="per-document-classification" class="section level4">
-<h4>PER DOCUMENT CLASSIFICATION</h4>
-<div id="section-24" class="section level87">
-<p></p>
-<p>chapters_gamma &lt;- tidy(chapters_lda, matrix = “gamma”)</p>
-<p>chapters_gamma</p>
-<p>chapters_gamma &lt;- chapters_gamma %&gt;% separate(document, c(“group_id”, “chapter”), sep = “_“, convert = TRUE)</p>
-<p>chapters_gamma</p>
-<p>chapters_gamma %&gt;% mutate(title = reorder(group_id, gamma * topic)) %&gt;% ggplot(aes(factor(topic), gamma)) + geom_boxplot() + facet_wrap(~ title)</p>
-<p>chapter_classifications &lt;- chapters_gamma %&gt;% group_by(group_id, chapter) %&gt;% top_n(1, gamma) %&gt;% ungroup()</p>
-<p>chapter_classifications</p>
-<p>book_topics &lt;- chapter_classifications %&gt;% count(group_id, topic) %&gt;% group_by(group_id) %&gt;% top_n(1, n) %&gt;% ungroup() %&gt;% transmute(consensus = group_id, topic)</p>
-<p>chapter_classifications %&gt;% inner_join(book_topics, by = “topic”) %&gt;% filter(group_id != consensus)</p>
-</div>
-<div id="section-25" class="section level87">
-<p></p>
-</div>
-</div>
-<div id="by-word-assignments-augment" class="section level4">
-<h4>BY WORD ASSIGNMENTS: AUGMENT</h4>
-<div id="section-26" class="section level87">
-<p></p>
-<p>assignments &lt;- augment(chapters_lda, data = chapters_dtm) assignments</p>
-<p>assignments &lt;- assignments %&gt;% separate(document, c(“title”, “chapter”), sep = “_“, convert = TRUE) %&gt;% inner_join(book_topics, by = c(”.topic&quot; = “topic”))</p>
-<p>assignments</p>
-<p>assignments %&gt;% count(title, consensus, wt = count) %&gt;% group_by(title) %&gt;% mutate(percent = n / sum(n)) %&gt;% ggplot(aes(consensus, title, fill = percent)) + geom_tile() + scale_fill_gradient2(high = “red”) + theme_minimal() + theme(axis.text.x = element_text(angle = 90, hjust = 1), panel.grid = element_blank()) + labs(x = “Book words were assigned to”, y = “Book words came from”, fill = “% of assignments”)</p>
-<p>wrong_words &lt;- assignments %&gt;% filter(title != consensus)</p>
-<p>wrong_words</p>
-<p>wrong_words %&gt;% count(title, consensus, term, wt = count) %&gt;% ungroup() %&gt;% arrange(desc(n)) ```</p>
-</div>
-</div>
+<div id="per-document-classification" class="section level1">
+<h1>Per Document Classification</h1>
+<pre><code>## # A tibble: 71 × 4
+##             group_id chapter topic     gamma
+##                &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
+## 1    Anti-Government       3     1 0.9999510
+## 2          Anti-LGBT       4     1 0.9683443
+## 3          Anti-LGBT       9     1 0.4517697
+## 4  White Nationalist       5     1 0.9998670
+## 5          Anti-LGBT       3     1 0.5497992
+## 6        Anti-Muslim       4     1 0.9492134
+## 7           Neo-Nazi       7     2 0.9999491
+## 8     Anti-Immigrant       2     2 0.9999645
+## 9     Anti-Immigrant       6     2 0.9999646
+## 10    Anti-Immigrant       1     2 0.6123448
+## # ... with 61 more rows</code></pre>
+<pre><code>## # A tibble: 88 × 5
+##            group_id chapter topic     gamma       consensus
+##               &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;           &lt;chr&gt;
+## 1          Neo-Nazi       7     2 0.9999491  Anti-Immigrant
+## 2          Neo-Nazi       7     2 0.9999491             KKK
+## 3          Neo-Nazi       7     2 0.9999491 Neo-Confederate
+## 4    Anti-Immigrant       2     2 0.9999645             KKK
+## 5    Anti-Immigrant       2     2 0.9999645 Neo-Confederate
+## 6    Anti-Immigrant       6     2 0.9999646             KKK
+## 7    Anti-Immigrant       6     2 0.9999646 Neo-Confederate
+## 8    Anti-Immigrant       1     2 0.6123448             KKK
+## 9    Anti-Immigrant       1     2 0.6123448 Neo-Confederate
+## 10 Black Separatist       3     2 0.4254101  Anti-Immigrant
+## # ... with 78 more rows</code></pre>
+<p>Explanation of graph <img src="index_files/figure-html/assignments_graph-1.png" width="960" /></p>
+<pre><code>## # A tibble: 111,411 × 4
+##              title         consensus   term     n
+##              &lt;chr&gt;             &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  Anti-Government         Anti-LGBT    gun   926
+## 2  Anti-Government White Nationalist    gun   926
+## 3      Anti-Muslim    Anti-Immigrant muslim   614
+## 4      Anti-Muslim               KKK muslim   614
+## 5      Anti-Muslim   Neo-Confederate muslim   614
+## 6        Anti-LGBT White Nationalist    god   454
+## 7      Anti-Muslim    Anti-Immigrant  trump   324
+## 8      Anti-Muslim               KKK  trump   324
+## 9      Anti-Muslim   Neo-Confederate  trump   324
+## 10 Anti-Government    Anti-Immigrant  trump   319
+## # ... with 111,401 more rows</code></pre>
 </div>
 
 
