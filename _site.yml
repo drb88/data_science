@@ -1,0 +1,9 @@
+name: "Data Science"
+output_dir: "."
+navbar:
+  title: "Data Science"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About Me"
+      href: about.html
