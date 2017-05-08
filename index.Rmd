@@ -472,16 +472,6 @@ assignments %>%
 Confusion matrix showing where LDA assigned tweets from either Trump or an ideological hate group.
 
 &nbsp;
-
-```{r, echo = FALSE, eval=FALSE, warning=FALSE, message = FALSE, fig.align='center'}
-wrong_words <- assignments %>%
-  filter(title != consensus)
-
-wrong_words %>%
-  count(title, consensus, term, wt = count) %>%
-  ungroup() %>%
-  arrange(desc(n))
-```
   
 ### Conclusion 
 
