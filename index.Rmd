@@ -23,9 +23,9 @@ We begin with several text analyses of Trump's tweets using methods such as n_gr
 
 We obtained data from the [Trump Twitter Archive](http://www.trumptwitterarchive.com/). This source compiled Trump's Twitter activity into a dataset that includes information on the date he tweeted, the text he tweeted, and retweet counts. We use Trump's tweets from 2009 to present day.
 
-We also used the [Southern Poverty Law Center](https://www.splcenter.org/fighting-hate/extremist-files/individual) to gather a list of individuals who have been identified as extremist. They range from being white Nationalist to anti-Islamic or anti-Semitic. We identified their twitter handles, or their affiliated organization's twitter handles, and scraped their most recent tweets. Unfortunately, Twitter API allows us to go back to tweets six to nine days in the past, so we collected whatever tweets were available to us from May 5^th^ 2017, to as early as April 26^th^, 2017.
+We also used the [Southern Poverty Law Center](https://www.splcenter.org/fighting-hate/extremist-files/individual) to gather a list of individuals who have been identified as extremist. They range from being white Nationalist to anti-Islamic or anti-Semitic. We identified their Twitter handles, or their affiliated organization's Twitter handles, and scraped their most recent tweets. Unfortunately, Twitter API allows us to go back to tweets six to nine days in the past, so we collected whatever tweets were available to us from May 5^th^ 2017, to as early as April 26^th^, 2017.
 
-The final data set, for Trumps tweets, has approximately 30,866 observations, and the hate group data set comprises of a total of 75 individuals and groups and 62,252 observations.
+The final data set for Trump's tweets has approximately 30,866 observations, while the hate group data set is comprised of a total of 75 individuals and groups, totaling 62,252 tweets.
 
 &nbsp;
 
@@ -39,9 +39,6 @@ library(tm)
 library(stringr)
 library(dplyr)
 library(tidytext)
-library(janeaustenr)
-library(twitteR)
-library(stringr)
 library(tidyr)
 library(igraph)
 library(ggraph)
@@ -145,7 +142,7 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
 ```
-Common bigram that occured more than 20 times in which neither word was a stop-word
+Common bigram that occurred more than 20 times in which neither word was a stop-word
 
 
 &nbsp;
@@ -197,7 +194,7 @@ Top 10 words from Trump's tweets that are most correlated with 'christian', 'mus
 &nbsp;
 
 ##### Politicians
-When analyzing word correlations with politicians, the highest correlations are with the politicans' last names, but when we look at Hillary Clinton specifically, we see that the word 'crooked' is also highly correlated - something that we all heard in his speeches during the presidential campaign.
+When analyzing word correlations with politicians, the highest correlations are with the politicians' last names, but when we look at Hillary Clinton specifically, we see that the word 'crooked' is also highly correlated - something that we all heard in his speeches during the presidential campaign.
 ```{r pairwise_correlation_two_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("hillary", "jeb", "ted", "bernie")) %>%
@@ -234,7 +231,7 @@ Top 10 words from Trump's tweets that are most correlated with 'healthcare', 'ec
 &nbsp;
 
 ##### Race
-Lastly, looking at his views on race, Trump was not very vocal on 'white' as a race, but he had a lot to say about the black, hispanic, and arab communities. Looking at the word correlations with hispanic, and black especially, we can see high correlaions with words that have negative connatation. 
+Lastly, looking at his views on race, Trump was not very vocal on 'white' as a race, but he had a lot to say about the black, hispanic, and arab communities. Looking at the word correlations with hispanic, and black especially, we can see high correlations with words that have negative connotation. 
 ```{r pairwise_correlation_four_graph, echo=FALSE, message=FALSE, fig.width=10, fig.height=7}
 word_cors %>%
   filter(item1 %in% c("white", "black", "hispanic", "arab")) %>%
@@ -338,9 +335,11 @@ We wanted to see how close Trump's rhetoric has been to extremist individuals/gr
 * Anti-Immigrant
 * Anti-Government
 
+&nbsp;
+
 ### Using Topic Modeling 
 
-We use topic modeling which is a method for unsupervised classification of a collestion of documents (in this case, tweets) which finds natural groups (in this case, ideologies) of iterms so we can understand them separately.
+Topic modeling is a method for unsupervised classification of a collection of documents (in this case, ideologies) which finds natural groups (in this case, topics) of items so we can understand them separately.
 
 &nbsp;
 
@@ -383,13 +382,15 @@ top_terms <- handle_topics %>%
 
 #### Latent Dirichlet allocation (LDA)
 
-LDA is a an alogorithm for topic modeling  where it allows documents to overlap each other in terms of content, rather than being separated into discrete groups, in a way that mirrors typical use of natural language. LDA finds the mixture of words that is associated with each topic, while also determining the mixture of topics that describes each document. 
+LDA is a an algorithm for topic modeling  where it allows documents to overlap each other in terms of content, rather than being separated into discrete groups, in a way that mirrors typical use of natural language. LDA finds the mixture of words that is associated with each topic, while also determining the mixture of topics that describes each document. 
 
 In our case, the `LDA()` function combines all the tweets (hate groups, and Trump tweets) and separates the mixture of words into topics that best fit with a body of topic (or ideology). 
 
 We use LDA to separate our combined set of tweets into 11 groups based on the idea that we have ten separate hate group ideologies and then one for Trump. It was assumed that each ideology will likely have unique topics of interest. For example, anti-immigrant groups will most likely mention words like 'immigration' or 'illegal' while anti-Islamic groups are likely to mention more words like 'jihad' and 'muslim'. 
 
 This is illustrated in the visualization below. Group 2 seems to be clearly about immigration whereas group 7 is more about Islam. The tenth group focuses on gun control, and the 11^th^ group seems to be more Neo-Nazi in nature. 
+
+It interesting to see how often Trump's name appears across the topics mentioned by hate groups.
 
 &nbsp;
 
@@ -405,15 +406,12 @@ Terms that are most common for each topic
 
 &nbsp;
 
-It interesting to see how often Trump's name appears across the topics mention by hate groups.
-
-&nbsp;
 
 #### By word assignments 
 
-In LDA, we can take the original tweet-word pairs and find which words in each tweet were assigned to which topic using the `augment()` function. This returns a tidy data frame of ideological group-term counts, but adds an extra column: `topic`, with the topic each term was assigned to within each group.We can combine this `assignments` table with the consensus ideological groups to find which words were incorrectly classified. 
+In LDA, we can take the original tweet-word pairs and find which words in each tweet were assigned to which topic using the `augment()` function. This returns a tidy data frame of ideological group-term counts, but adds an extra column: `topic`, with the topic each term was assigned to within each group. We can combine this `assignments` table with the consensus ideological groups to find which words were incorrectly classified. 
 
-The combination of the true ideological groups, `(title)` or `group_id`, and the group assigned to it `(consensus)` can be used to visualize a confusion matrix, showing how often words from the tweets of one ideological group were assigned to another, usinf dplyr's `count()` and ggplot2's `geom_tile` functions. 
+The combination of the true ideological groups, `(title)` or `group_id`, and the group assigned to it `(consensus)` can be used to visualize a confusion matrix, showing how often words from the tweets of one ideological group were assigned to another, using dplyr's `count()` and ggplot2's `geom_tile` functions. 
 
 What stands out most in the confusion matrix is that a lot of KKK words were mistaken for Trump's words. All of Trump's words were assigned correctly to Trump. Neo-Confederate related words were mistaken to be part of Anti-LGBT or White Nationalist words. 
 
@@ -477,6 +475,6 @@ Confusion matrix showing where LDA assigned tweets from either Trump or an ideol
 
 From Trump's tweets analysis alone, we could not make a very strong case that his rhetoric has been negative. However, we do see some hateful speech in the word correlations, and we also see that his tweets have become less positive (and balanced out by more negative sentiments) over time. 
 
-When comparing Trump to other hate group ideologies, the confusion matrix was very good in capturing how the Ku Klux Klan's speech is very closely aligned with that of Trump's. Knowing the KKK's history and hate towards other races, this somewhat shows how Trump has influenced and encouraged hate speech over the recent years.
+When comparing Trump to other hate group ideologies, the confusion matrix captured how many of the Ku Klux Klan's tweets are confused with Trump's tweets. Knowing the KKK's history and hate towards other races, this should be troubling to Trump. In the end, it is clear that he should be more mindful of what Tweets.
   
   
